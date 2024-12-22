@@ -1,3 +1,6 @@
+using LibraryBookingSystem.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace LibraryBookingSystem
 {
     public class Program
@@ -8,6 +11,9 @@ namespace LibraryBookingSystem
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddDbContext<LibraryManagementDbContext>(options =>
+                options.UseMySql("server=127.0.0.1;uid=root;database=librarymanagementdb",
+                ServerVersion.AutoDetect("server=127.0.0.1;uid=root;database=librarymanagementdb")));
 
             var app = builder.Build();
 

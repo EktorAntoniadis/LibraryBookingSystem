@@ -3,6 +3,7 @@ using LibraryBookingSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryBookingSystem.Migrations
 {
     [DbContext(typeof(LibraryManagementDbContext))]
-    partial class LibraryManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241222133226_RolePermissionManyToMany")]
+    partial class RolePermissionManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +36,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasIndex("BooksBookId");
 
-                    b.ToTable("AuthorBook", (string)null);
+                    b.ToTable("AuthorBook");
                 });
 
             modelBuilder.Entity("LibraryBookingSystem.Models.Author", b =>
@@ -52,7 +55,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasKey("AuthorId");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("LibraryBookingSystem.Models.Book", b =>
@@ -94,7 +97,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasIndex("GenreID");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("LibraryBookingSystem.Models.Genre", b =>
@@ -113,7 +116,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasKey("GenreID");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("LibraryBookingSystem.Models.Inventory", b =>
@@ -137,7 +140,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("Inventories", (string)null);
+                    b.ToTable("Inventories");
                 });
 
             modelBuilder.Entity("LibraryBookingSystem.Models.Permission", b =>
@@ -158,7 +161,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasKey("PermissionId");
 
-                    b.ToTable("Permissions", (string)null);
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("LibraryBookingSystem.Models.RentedUserBook", b =>
@@ -193,7 +196,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RentedUserBooks", (string)null);
+                    b.ToTable("RentedUserBooks");
                 });
 
             modelBuilder.Entity("LibraryBookingSystem.Models.Role", b =>
@@ -214,7 +217,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("LibraryBookingSystem.Models.User", b =>
@@ -247,7 +250,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("PermissionRole", b =>
@@ -262,7 +265,7 @@ namespace LibraryBookingSystem.Migrations
 
                     b.HasIndex("RolesRoleId");
 
-                    b.ToTable("PermissionRole", (string)null);
+                    b.ToTable("PermissionRole");
                 });
 
             modelBuilder.Entity("AuthorBook", b =>

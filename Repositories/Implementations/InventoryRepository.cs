@@ -2,43 +2,57 @@
 
 namespace LibraryBookingSystem.Repositories.Implementations
 {
-    public class InventoryRepository
+    public class InventoryRepository : IInventoryRepository
     {
         private LibraryManagementDbContext _context;
         public InventoryRepository(LibraryManagementDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public void Add(Inventory inventory)
+
+        public void AddInventory(Inventory inventory)
         {
-            _context.Inventories.Add(inventory);
-            _context.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void AddRentedBook(RentedUserBook rentedBook)
         {
-            var inventory = GetById(id);
-            _context.Inventories.Remove(inventory);
-            _context.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<Inventory> GetAll()
+        public void DeleteInventory(int id)
         {
-            var inventorys = _context.Inventories.ToList();
-            return inventorys;
-
+            throw new NotImplementedException();
         }
 
-        public Inventory? GetById(int id)
+        public IEnumerable<Inventory> GetAllInventories()
         {
-            var inventory = _context.Inventories.Find(id);
-            return inventory;
+            throw new NotImplementedException();
         }
 
-        public void Update(Inventory inventorys)
+        public Genre? GetInventoryById(int id)
         {
-            _context.Inventories.Update(inventorys);
-            _context.SaveChanges();
+            throw new NotImplementedException();
+        }
+
+        public RentedUserBook GetRentedUserBook(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<RentedUserBook> GetUserRentedBooks(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateInventory(Inventory inventory)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateRentedBook(RentedUserBook rentedBook)
+        {
+            throw new NotImplementedException();
         }
     }
 }

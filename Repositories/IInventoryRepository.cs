@@ -4,10 +4,14 @@ namespace LibraryBookingSystem.Repositories
 {
     public interface IInventoryRepository
     {
-        IEnumerable<Inventory> GetAll();
-        Genre? GetById(int id);
-        void Add(Inventory inventory);
-        void Update(Inventory inventory);
-        void Delete(int id);
+        IEnumerable<Inventory> GetAllInventories();
+        Genre? GetInventoryById(int id);
+        void AddInventory(Inventory inventory);
+        void UpdateInventory(Inventory inventory);
+        void DeleteInventory(int id);
+        void AddRentedBook(RentedUserBook rentedBook);
+        void UpdateRentedBook(RentedUserBook rentedBook);
+        RentedUserBook GetRentedUserBook(int id);
+        IEnumerable<RentedUserBook> GetUserRentedBooks(int userId);
     }
 }

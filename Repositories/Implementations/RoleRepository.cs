@@ -17,11 +17,26 @@ namespace LibraryBookingSystem.Repositories.Implementations
             _context.SaveChanges();
         }
 
+        public void Add(Permission permission)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             var role = GetById(id);
             _context.Roles.Remove(role);
             _context.SaveChanges();
+        }
+
+        public void DeletePermission(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteRole(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Role> GetAll()
@@ -30,16 +45,41 @@ namespace LibraryBookingSystem.Repositories.Implementations
             return role;
         }
 
+        public IEnumerable<Permission> GetAllPermissions()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Role> GetAllRoles()
+        {
+            throw new NotImplementedException();
+        }
+
         public Role? GetById(int id)
         {
             var role = _context.Roles.Find(id);
             return role;
         }
 
+        public Permission? GetPermissionById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Role? GetRoleById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Role role)
         {
             _context.Roles.Update(role);
             _context.SaveChanges();
+        }
+
+        public void Update(Permission permission)
+        {
+            throw new NotImplementedException();
         }
     }
 }

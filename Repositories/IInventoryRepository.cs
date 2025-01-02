@@ -5,7 +5,7 @@ namespace LibraryBookingSystem.Repositories
     public interface IInventoryRepository
     {
         IEnumerable<Inventory> GetAllInventories();
-        Genre? GetInventoryById(int id);
+        Inventory? GetInventoryById(int id);
         void AddInventory(Inventory inventory);
         void UpdateInventory(Inventory inventory);
         void DeleteInventory(int id);

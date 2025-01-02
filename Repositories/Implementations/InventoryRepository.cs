@@ -5,6 +5,8 @@ namespace LibraryBookingSystem.Repositories.Implementations
     public class InventoryRepository : IInventoryRepository
     {
         private LibraryManagementDbContext _context;
+        private Inventory inventory;
+
         public InventoryRepository(LibraryManagementDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
@@ -12,7 +14,8 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public void AddInventory(Inventory inventory)
         {
-            throw new NotImplementedException();
+            _context.Inventories.Add(inventory);
+            _context.SaveChanges();
         }
 
         public void AddRentedBook(RentedUserBook rentedBook)
@@ -22,17 +25,22 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public void DeleteInventory(int id)
         {
-            throw new NotImplementedException();
+            //Υλοποίηση αυτής της μεθόδου
+            var inventory = GetInventoryById(id);
+            _context.Inventories.Remove(inventory);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Inventory> GetAllInventories()
         {
-            throw new NotImplementedException();
+            var inventories = _context.Inventories.ToList();
+            return inventories;
         }
 
-        public Genre? GetInventoryById(int id)
+        public Inventory? GetInventoryById(int id)
         {
-            throw new NotImplementedException();
+            var inventory = _context.Inventories.Find(id);
+            return inventory;
         }
 
         public RentedUserBook GetRentedUserBook(int id)
@@ -47,7 +55,8 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public void UpdateInventory(Inventory inventory)
         {
-            throw new NotImplementedException();
+            _context.Inventories.Update(inventory);
+            _context.SaveChanges();
         }
 
         public void UpdateRentedBook(RentedUserBook rentedBook)

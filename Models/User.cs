@@ -7,14 +7,17 @@ namespace LibraryBookingSystem.Models
     {
         [Key]        
         public int UserId { get; set; }
-        public int FirstName { get; set; }
-        public int LastName { get; set; }
-        public int Email { get; set; }
-        public int Phone { get; set; }
-        public int RegisteredDate { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public DateOnly RegisteredDate { get; set; }
        
         [ForeignKey("Role")]
         public int RoleId { get; set; }
         public Role Role { get; set; }
+        public string Username { get; internal set; }
+        public string PhoneNumber { get; internal set; }
+        public string Password { get; internal set; }
+        
     }
 }

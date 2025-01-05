@@ -33,8 +33,16 @@ namespace LibraryBookingSystem
             app.UseAuthorization();
 
             app.MapRazorPages();
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<LibraryManagementDbContext>();
 
-            app.Run();
+                var seeder = new DatabaseSeed(context);
+                seeder.Seed();
+            }
+
+            app.Run();            
         }
     }
 }

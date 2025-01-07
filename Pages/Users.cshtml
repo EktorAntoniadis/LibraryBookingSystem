@@ -1,0 +1,36 @@
+﻿@page
+@model UsersModel
+@{
+    ViewData["Users"] = "Users";
+}
+
+<h1>@ViewData["Users"]</h1>
+
+@if (Model.Users != null && Model.Users.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.Username</td>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No users found.</p>
+}

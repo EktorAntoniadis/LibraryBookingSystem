@@ -16,9 +16,9 @@ namespace LibraryBookingSystem.Models
         [ForeignKey("Book")]
         public int BookId { get; set; }
         public Book Book { get; set; }
-        public int RentedDate { get; set; }
-        public int DueDate { get; set; }
-        public int ReturnDate { get; set; }
-        public int Status { get; set;}
+        public DateOnly RentedDate { get; set; }
+        public DateOnly DueDate { get; set; }
+        public DateOnly ReturnDate { get; set; }
+        public string Status { get; set;}
     }
 }

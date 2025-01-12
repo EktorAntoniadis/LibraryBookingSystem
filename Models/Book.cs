@@ -10,17 +10,17 @@ namespace LibraryBookingSystem.Models
     {
         [Key]
         public int BookId { get; set; }
-        public int Title { get; set; }
-        public int Publisher { get; set; }
-        public int PublicationDate { get; set; }
-        public int ISBN { get; set; }
+        public string Title { get; set; }
+        public string Publisher { get; set; }
+        public DateOnly PublicationDate { get; set; }
+        public string ISBN { get; set; }
        
         [ForeignKey("Genre")]        
         public int GenreID { get; set; }
         public Genre Genre { get; set; }
         public int Pages { get; set; }
-        public int Language { get; set; }
-        public int Summary { get; set; }
+        public string Language { get; set; }
+        public string Summary { get; set; }
         public int Rating { get; set; }
         public virtual IEnumerable<Author> Authors { get; set; }
 

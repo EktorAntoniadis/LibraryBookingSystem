@@ -7,8 +7,8 @@ namespace LibraryBookingSystem.Models
     {
         [Key]
         public int AuthorId { get; set; }
-        public int FirstName { get; set; }
-        public int LastName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public virtual IEnumerable<Book> Books { get; set; }
 

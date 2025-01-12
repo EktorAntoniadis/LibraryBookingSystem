@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Bogus;
+using Microsoft.AspNetCore.Identity;
 using System.Numerics;
 using static System.Reflection.Metadata.BlobBuilder;
 
@@ -185,6 +186,151 @@ namespace LibraryBookingSystem.Models
                 _context.Users.AddRange(memberUser, administratorUser, librarianUser);
                 _context.SaveChanges();
             }
+
+            //Βαλε μου εγγραφες στον πινακα Genres οπως εχουμε κανει και για τα παραπάνω, με τα εξης είδη:
+            //Romance, Mystery, Horror, Drama, Thriller, Adventure, Fiction, Novel, Fantasy, Biography, Humor, Science, History
+
+            var genreList = new List<Genre>
+            {
+                new Genre
+                {
+                    GenreName = "Romance",
+                    Description = "Romance Genre"
+                },
+                new Genre
+                {
+                  GenreName = "Mystery",
+                  Description = "Mystery"
+                },
+                new Genre
+                {
+                  GenreName = "Horror",
+                  Description = "Horror"
+                },
+                new Genre
+                {
+                  GenreName = "Drama",
+                  Description = "Drama"
+                },
+                new Genre
+                {
+                  GenreName = "Thriller",
+                  Description = "Thriller"
+                },
+                new Genre
+                {
+                  GenreName = "Adventure",
+                  Description = "Adventure"
+                },
+                new Genre
+                {
+                  GenreName = "Fiction",
+                  Description = "Fiction"
+                },
+                new Genre
+                {
+                  GenreName = "Novel",
+                  Description = "Novel"
+                },
+                new Genre
+                {
+                  GenreName = "Fantasy",
+                  Description = "Fantasy"
+                },
+                new Genre
+                {
+                  GenreName = "Biography",
+                  Description = "Biography"
+                },
+                new Genre
+                {
+                  GenreName = "Humor",
+                  Description = "Humor"
+                },
+                new Genre
+                {
+                  GenreName = "Science",
+                  Description = "Science"
+                },
+                new Genre
+                {
+                  GenreName = "History",
+                  Description = "History"
+                },
+            };
+
+            if (!_context.Genres.Any())
+            {
+                _context.Genres.AddRange(genreList);
+                _context.SaveChanges();
+            }
+
+            SeedBogusData();
+        }
+
+        private void SeedBogusData()
+        {
+            if (_context.Authors.Any() || _context.Publishers.Any() || _context.Books.Any())
+            {
+                return;
+            }
+
+            var libraryFaker = new Faker();
+
+            var publisherList = new List<Publisher>();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                publisherList.Add(new Publisher
+                {
+                    Name = libraryFaker.Company.CompanyName(),
+                    Address = libraryFaker.Address.StreetAddress(),
+                    City = libraryFaker.Address.City(),
+                    Country = libraryFaker.Address.Country(),
+                    Email = libraryFaker.Internet.Email(),
+                    Phone = libraryFaker.Phone.PhoneNumber(),
+                    Website = libraryFaker.Internet.Url(),
+                });
+            }
+
+            _context.Publishers.AddRange(publisherList);
+
+            var authorlist = new List<Author>();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                authorlist.Add(new Author
+                {
+                    FirstName = libraryFaker.Name.FirstName(),
+                    LastName = libraryFaker.Name.LastName(),
+                });
+            }
+
+            _context.Authors.AddRange(authorlist);
+            _context.SaveChanges();
+
+            var bookList = new List<Book>();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                var randomNumberOfAuthors = libraryFaker.Random.Int(1, 5);
+                bookList.Add(new Book
+                {
+                    Title = libraryFaker.Lorem.Random.Word(),
+                    PublicationDate = DateOnly.FromDateTime(libraryFaker.Date.Past(30)),
+                    ISBN = libraryFaker.Random.ReplaceNumbers("###-#-##-######-#"),
+                    GenreID = libraryFaker.Random.Int(1, 13),
+                    Pages = libraryFaker.Random.Int(50, 800),
+                    Language = libraryFaker.PickRandom(new[] { "English", "French", "German", "Greek", "Spanish" }),
+                    Rating = libraryFaker.Random.Int(1, 5),
+                    PublisherId = libraryFaker.Random.Int(1, 1000),
+                    Authors = libraryFaker.PickRandom(authorlist, randomNumberOfAuthors).ToList(),
+                    Summary = libraryFaker.Lorem.Paragraph(),
+                });
+            }
+
+            _context.Books.AddRange(bookList);
+            _context.SaveChanges();
         }
     }
 }

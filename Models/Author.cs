@@ -10,7 +10,7 @@ namespace LibraryBookingSystem.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public virtual IEnumerable<Book> Books { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LibraryBookingSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryBookingSystem.Repositories.Implementations
 {
@@ -64,7 +65,7 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public IEnumerable<Book> GetAllBooks()
         {
-            var books = _context.Books.ToList();
+            var books = _context.Books.Include(x=>x.Publisher).Include(x=>x.Genre).ToList();
             return books;
 
         }

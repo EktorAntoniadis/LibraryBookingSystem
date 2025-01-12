@@ -9,6 +9,7 @@ namespace LibraryBookingSystem.Repositories.Implementations
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
+
         public void Add(User user)
         {
             _context.Users.Add(user);
@@ -31,6 +32,12 @@ namespace LibraryBookingSystem.Repositories.Implementations
         public User? GetById(int id)
         {
             var user = _context.Users.Find(id);
+            return user;
+        }
+
+        public User? GetByUserName(string userName)
+        {
+            var user = _context.Users.Where(x => x.Username == userName).FirstOrDefault();
             return user;
         }
 

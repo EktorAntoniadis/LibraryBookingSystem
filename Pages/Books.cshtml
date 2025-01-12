@@ -1,0 +1,110 @@
+﻿@page
+@model BooksModel
+@{
+    ViewData["Books"] = "Library Books";
+}
+
+<h1>Library Books</h1>
+
+<h2>All Books</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Genre.GenreName</td>
+                <td>
+                    <a asp-action="EditBook" asp-route-id="@book.BookId">Edit</a> |
+                    <a asp-action="DeleteBook" asp-route-id="@book.BookId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* <h2>Add New Book</h2>
+<form asp-action="AddBook" method="post">
+    <div class="form-group">
+        <label asp-for="NewBook.Title"></label>
+        <input asp-for="NewBook.Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="NewBook.AuthorId"></label>
+        <select asp-for="NewBook.AuthorId" class="form-control" asp-items="Model.Authors"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewBook.GenreId"></label>
+        <select asp-for="NewBook.GenreId" class="form-control" asp-items="Model.Genres"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Book</button>
+</form> *@
+
+@* <h2>All Authors</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var author in Model.Authors)
+        {
+            <tr>
+                <td>@author.Name</td>
+                <td>
+                    <a asp-action="EditAuthor" asp-route-id="@author.Id">Edit</a> |
+                    <a asp-action="DeleteAuthor" asp-route-id="@author.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> *@
+
+@* <h2>Add New Author</h2>
+<form asp-action="AddAuthor" method="post">
+    <div class="form-group">
+        <label asp-for="NewAuthor.Name"></label>
+        <input asp-for="NewAuthor.Name" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Author</button>
+</form> *@
+
+@* <h2>All Genres</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var genre in Model.Genres)
+        {
+            <tr>
+                <td>@genre.Name</td>
+                <td>
+                    <a asp-action="EditGenre" asp-route-id="@genre.Id">Edit</a> |
+                    <a asp-action="DeleteGenre" asp-route-id="@genre.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> *@
+
+@* <h2>Add New Genre</h2>
+<form asp-action="AddGenre" method="post">
+    <div class="form-group">
+        <label asp-for="NewGenre.Name"></label>
+        <input asp-for="NewGenre.Name" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Genre</button>
+</form> *@

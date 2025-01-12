@@ -1,4 +1,6 @@
 using LibraryBookingSystem.Models;
+using LibraryBookingSystem.Repositories;
+using LibraryBookingSystem.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryBookingSystem
@@ -14,6 +16,10 @@ namespace LibraryBookingSystem
             builder.Services.AddDbContext<LibraryManagementDbContext>(options =>
                 options.UseMySql("server=127.0.0.1;uid=root;database=librarymanagementdb",
                 ServerVersion.AutoDetect("server=127.0.0.1;uid=root;database=librarymanagementdb")));
+
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
             var app = builder.Build();
 

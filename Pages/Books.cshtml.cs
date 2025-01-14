@@ -12,7 +12,7 @@ namespace LibraryBookingSystem.Pages
 
         public BooksModel(IBookRepository bookRepository)
         {
-            _bookRepository = bookRepository;
+            _bookRepository = bookRepository ?? throw new ArgumentNullException(nameof(bookRepository));
         }
 
         public IEnumerable<Book> Books { get; set; } = new List<Book>();

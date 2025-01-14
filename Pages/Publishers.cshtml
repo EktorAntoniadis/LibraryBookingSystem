@@ -1,0 +1,52 @@
+﻿@page
+@model LibraryBookingSystem.Pages.PublishersModel
+@{
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Publishers</title>
+</head>
+<body>
+    <h1>Publisher List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Publisher Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Website</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Publishers != null && Model.Publishers.Any())
+            {
+                foreach (var publisher in Model.Publishers)
+                {
+                    <tr>
+                        <td>@publisher.PublisherId</td>
+                        <td>@publisher.Name</td>
+                        <td>@publisher.Email</td>
+                        <td>@publisher.Phone</td>
+                        <td>@publisher.Address</td>
+                        <td>@publisher.City</td>
+                        <td>@publisher.Country</td>
+                        <td><a href="@publisher.Website" target="_blank">@publisher.Website</a></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8">No publishers available</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+}

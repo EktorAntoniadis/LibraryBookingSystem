@@ -16,7 +16,7 @@ namespace LibraryBookingSystem.Repositories.Implementations
             _context.SaveChanges();
         }
 
-        public void Add(Genre genre)
+        public void AddGenre(Genre genre)
         {
             _context.Genres.Add(genre);
             _context.SaveChanges();
@@ -25,6 +25,12 @@ namespace LibraryBookingSystem.Repositories.Implementations
         public void Add(Author author)
         {
             _context.Authors.Add(author);
+            _context.SaveChanges();
+        }
+
+        public void AddPublisher(Publisher publisher)
+        {
+            _context.Publishers.Add(publisher);
             _context.SaveChanges();
         }
 
@@ -47,6 +53,16 @@ namespace LibraryBookingSystem.Repositories.Implementations
             var genre = GetGenreById(id);
             _context.Genres.Remove(genre);
             _context.SaveChanges();
+        }
+
+        public void DeletePublisher(int id)
+        {
+            var publisher = GetPublisherById(id);
+            if(publisher != null)
+            {
+                _context.Publishers.Remove(publisher);
+                _context.SaveChanges();
+            }
         }
 
         public IEnumerable<Book> GetAll()
@@ -76,6 +92,12 @@ namespace LibraryBookingSystem.Repositories.Implementations
             return genre;
         }
 
+        public IEnumerable<Publisher> GetAllPublishers()
+        {
+            var publishers = _context.Publishers.ToList();
+            return publishers;
+        }
+
         public Author? GetAuthorById(int id)
         {
             var author = _context.Authors.Find(id);
@@ -94,6 +116,12 @@ namespace LibraryBookingSystem.Repositories.Implementations
             return genre;
         }
 
+        public Publisher? GetPublisherById(int id)
+        {
+            var publisher = _context.Publishers.Find(id);
+            return publisher;
+        }
+
         public void Update(Book books)
         {
             _context.Books.Update(books);
@@ -109,6 +137,12 @@ namespace LibraryBookingSystem.Repositories.Implementations
         public void Update(Author author)
         {
             _context.Authors.Update(author);
+            _context.SaveChanges();
+        }
+
+        public void UpdatePublisher(Publisher publisher)
+        {
+            _context.Publishers.Update(publisher);
             _context.SaveChanges();
         }
     }

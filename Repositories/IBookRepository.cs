@@ -11,7 +11,7 @@ namespace LibraryBookingSystem.Repositories
         void DeleteBook(int id);
         IEnumerable<Genre> GetAllGenres();
         Genre? GetGenreById(int id);
-        void Add(Genre genre);
+        void AddGenre(Genre genre);
         void Update(Genre genre);
         void DeleteGenre(int id);
         IEnumerable<Author> GetAllAuthors();
@@ -19,5 +19,11 @@ namespace LibraryBookingSystem.Repositories
         void Add(Author author);
         void Update(Author author);
         void DeleteAuthor(int id);
+
+        IEnumerable<Publisher> GetAllPublishers();
+        Publisher? GetPublisherById(int id);
+        void AddPublisher(Publisher publisher);
+        void UpdatePublisher(Publisher publisher);
+        void DeletePublisher(int id);
     }
 }

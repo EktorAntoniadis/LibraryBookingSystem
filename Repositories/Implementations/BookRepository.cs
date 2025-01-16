@@ -10,7 +10,7 @@ namespace LibraryBookingSystem.Repositories.Implementations
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public void Add(Book book)
+        public void AddBook(Book book)
         {
             _context.Books.Add(book);
             _context.SaveChanges();
@@ -22,7 +22,7 @@ namespace LibraryBookingSystem.Repositories.Implementations
             _context.SaveChanges();
         }
 
-        public void Add(Author author)
+        public void AddAuthor(Author author)
         {
             _context.Authors.Add(author);
             _context.SaveChanges();
@@ -122,19 +122,19 @@ namespace LibraryBookingSystem.Repositories.Implementations
             return publisher;
         }
 
-        public void Update(Book books)
+        public void UpdateBook(Book books)
         {
             _context.Books.Update(books);
             _context.SaveChanges();
         }
 
-        public void Update(Genre genre)
+        public void UpdateGenre(Genre genre)
         {
             _context.Genres.Update(genre);
             _context.SaveChanges();
         }
 
-        public void Update(Author author)
+        public void UpdateAuthor(Author author)
         {
             _context.Authors.Update(author);
             _context.SaveChanges();

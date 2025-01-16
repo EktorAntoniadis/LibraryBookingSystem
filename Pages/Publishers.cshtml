@@ -1,52 +1,89 @@
 ﻿@page
 @model LibraryBookingSystem.Pages.PublishersModel
 @{
+    ViewData["Publishers"] = "Manage Publishers";
+}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Publishers</title>
-</head>
-<body>
-    <h1>Publisher List</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Publisher Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Country</th>
-                <th>Website</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Publishers != null && Model.Publishers.Any())
-            {
-                foreach (var publisher in Model.Publishers)
-                {
-                    <tr>
-                        <td>@publisher.PublisherId</td>
-                        <td>@publisher.Name</td>
-                        <td>@publisher.Email</td>
-                        <td>@publisher.Phone</td>
-                        <td>@publisher.Address</td>
-                        <td>@publisher.City</td>
-                        <td>@publisher.Country</td>
-                        <td><a href="@publisher.Website" target="_blank">@publisher.Website</a></td>
-                    </tr>
-                }
-            }
-            else
+@if(Model.EditPublisher !=null)
+{
+    <h3>Edit Publisher</h3>
+    <form method="post" asp-page-handler="EditPublisher" id="editPublisherForm" class="justify-content-center align-items-center gap-3">
+        <input hidden asp-for="EditPublisher.PublisherId" />
+        <div class="form-group">
+            <label asp-for="EditPublisher.Name">Name</label>
+            <input class="form-control" asp-for="EditPublisher.Name" />
+        </div>
+        <div class="form-group">
+            <label asp-for="EditPublisher.Address">Publisher Address</label>
+            <input class="form-control" asp-for="EditPublisher.Address" />
+        </div>
+        <div class="form-group">
+            <label asp-for="EditPublisher.City">Publisher City</label>
+            <input class="form-control" asp-for="EditPublisher.City" />
+        </div>
+        <div class="form-group">
+            <label asp-for="EditPublisher.Country">Publisher Country</label>
+            <input class="form-control" asp-for="EditPublisher.Country" />
+        </div>
+        <div class="form-group">
+            <label asp-for="EditPublisher.Email">Publisher Email</label>
+            <input class="form-control" asp-for="EditPublisher.Email" />
+        </div>
+        <div class="form-group">
+            <label asp-for="EditPublisher.Website">Publisher Website</label>
+            <input class="form-control" asp-for="EditPublisher.Website" />
+        </div>
+        <div class="form-group">
+            <label asp-for="EditPublisher.Phone">Publisher Phone</label>
+            <input class="form-control" asp-for="EditPublisher.Phone" />
+        </div>
+        <button type="submit" class="btn btn-primary mb-3 mt-3">Edit Publisher</button>
+    </form>
+}
+
+<h1>Publishers</h1>
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th>Publisher Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Website</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Publishers != null && Model.Publishers.Any())
+        {
+            foreach (var publisher in Model.Publishers)
             {
                 <tr>
-                    <td colspan="8">No publishers available</td>
+                    <td>@publisher.PublisherId</td>
+                    <td>@publisher.Name</td>
+                    <td>@publisher.Email</td>
+                    <td>@publisher.Phone</td>
+                    <td>@publisher.Address</td>
+                    <td>@publisher.City</td>
+                    <td>@publisher.Country</td>
+                    <td><a href="@publisher.Website" target="_blank">@publisher.Website</a></td>
+                    <td>
+                        <form method="post" asp-page-handler="Update" asp-route-id="@publisher.PublisherId" style="display:inline">
+                            <button type="submit" class="btn btn-secondary">Edit</button>
+                        </form>
+                    </td>
                 </tr>
             }
-        </tbody>
-    </table>
-</body>
-</html>
-}
+        }
+        else
+        {
+            <tr>
+                <td colspan="8">No publishers available</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

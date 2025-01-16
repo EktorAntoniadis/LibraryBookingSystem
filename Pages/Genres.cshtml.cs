@@ -17,13 +17,35 @@ namespace LibraryBookingSystem.Pages
         [BindProperty]
         public Genre NewGenre { get; set; } = new Genre();
 
+        [BindProperty]
+        public Genre EditGenre { get; set; }
+
         public List<Genre> Genres { get; set; } = new List<Genre>();
 
         public void OnGet()
         {
             Genres = _repository.GetAllGenres().ToList();
         }
-        //                   Post απο τη φόρμα - Ονομα του Handler  
+
+        public IActionResult OnPostUpdate(int id)
+        {
+            var editGenre = _repository.GetGenreById(id);
+            if(editGenre == null)
+            {
+                return NotFound();
+            }
+
+            Genres = _repository.GetAllGenres().ToList();
+            EditGenre = editGenre;
+            return Page();
+        }
+
+        public IActionResult OnPostEditGenre()
+        {
+            _repository.UpdateGenre(EditGenre);
+            EditGenre = null;
+            return RedirectToPage("/Genres");
+        }
         public IActionResult OnPostAddGenre()
         {
             if (!ModelState.IsValid)
@@ -32,18 +54,6 @@ namespace LibraryBookingSystem.Pages
             }
 
             _repository.AddGenre(NewGenre);
-            return RedirectToPage();
-        }
-
-        public IActionResult OnPostDelete(int id)
-        {
-            var genre = _repository.GetGenreById(id);
-            if (genre == null)
-            {
-                return NotFound();
-            }
-
-            _repository.DeleteGenre(id);
             return RedirectToPage();
         }
     }

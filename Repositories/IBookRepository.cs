@@ -6,18 +6,18 @@ namespace LibraryBookingSystem.Repositories
     {
         IEnumerable<Book> GetAllBooks();
         Book? GetBookById(int id);
-        void Add(Book book);
-        void Update(Book book);
+        void AddBook(Book book);
+        void UpdateBook(Book book);
         void DeleteBook(int id);
         IEnumerable<Genre> GetAllGenres();
         Genre? GetGenreById(int id);
         void AddGenre(Genre genre);
-        void Update(Genre genre);
+        void UpdateGenre(Genre genre);
         void DeleteGenre(int id);
         IEnumerable<Author> GetAllAuthors();
         Author? GetAuthorById(int id);
-        void Add(Author author);
-        void Update(Author author);
+        void AddAuthor(Author author);
+        void UpdateAuthor(Author author);
         void DeleteAuthor(int id);
 
         IEnumerable<Publisher> GetAllPublishers();

@@ -14,25 +14,37 @@ namespace LibraryBookingSystem.Pages
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        [BindProperty]
-        public IEnumerable<Author> Authors { get; set; }
 
-        public IActionResult OnGet()
+        [BindProperty]
+        public Author EditAuthor { get; set; }
+
+        public List<Author> Authors { get; set; } = new List<Author>();
+
+        public void OnGet()
         {
-            Authors = _repository.GetAllAuthors();
-            return Page();
+            Authors = _repository.GetAllAuthors().ToList();
         }
 
-        public IActionResult OnPostDelete(int id)
+        public IActionResult OnPostUpdate(int id)
         {
-            var author = _repository.GetAuthorById(id);
-            if (author == null)
+            var editAuthor = _repository.GetAuthorById(id);
+            if (editAuthor == null)
             {
                 return NotFound();
             }
-
-            _repository.DeleteAuthor(id);
-            return RedirectToPage();
+            EditAuthor = editAuthor;
+            Authors = _repository.GetAllAuthors().ToList();
+            return Page();
         }
+
+        public IActionResult OnPostEditAuthor()
+        {
+            if (!string.IsNullOrWhiteSpace(EditAuthor.FirstName) && !string.IsNullOrEmpty(EditAuthor.LastName))
+            {
+                _repository.UpdateAuthor(EditAuthor);
+            }
+
+            return RedirectToPage("/Authors");
+        }     
     }
 }

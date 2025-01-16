@@ -1,9 +1,10 @@
-﻿using LibraryBookingSystem.Models;
+﻿using LibraryBookingSystem.Common;
+using LibraryBookingSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryBookingSystem.Repositories.Implementations
 {
-    public class BookRepository: IBookRepository
+    public class BookRepository : IBookRepository
     {
         private LibraryManagementDbContext _context;
         public BookRepository(LibraryManagementDbContext context)
@@ -58,18 +59,11 @@ namespace LibraryBookingSystem.Repositories.Implementations
         public void DeletePublisher(int id)
         {
             var publisher = GetPublisherById(id);
-            if(publisher != null)
+            if (publisher != null)
             {
                 _context.Publishers.Remove(publisher);
                 _context.SaveChanges();
             }
-        }
-
-        public IEnumerable<Book> GetAll()
-        {
-            var books = _context.Books.ToList();
-            return books;
-
         }
 
         public IEnumerable<Author> GetAllAuthors()
@@ -79,9 +73,9 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         }
 
-        public IEnumerable<Book> GetAllBooks()
+        public IEnumerable<Book> GetBooks()
         {
-            var books = _context.Books.Include(x=>x.Publisher).Include(x=>x.Genre).ToList();
+            var books = _context.Books.Include(x => x.Publisher).Include(x => x.Genre).ToList();
             return books;
 
         }
@@ -144,6 +138,62 @@ namespace LibraryBookingSystem.Repositories.Implementations
         {
             _context.Publishers.Update(publisher);
             _context.SaveChanges();
+        }
+
+        public PaginatedList<Book> GetBooks(
+            int pageIndex,
+            int pageSize,
+            string? searchTitle = null,
+            string? genre = null,
+            string? author = null,
+            string? ISBN = null,
+            string? sortColumn = "Title",
+            string? sortDirection = "asc")
+        {
+            var query = _context.Books
+                .Include(x => x.Genre)
+                .Include(x => x.Authors)
+                .Include(x=>x.Publisher)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTitle))
+            {
+                query = query.Where(x => x.Title.Contains(searchTitle));
+            }
+
+            if (!string.IsNullOrWhiteSpace(ISBN))
+            {
+                query = query.Where(x => x.ISBN.Contains(ISBN));
+            }
+
+            if (!string.IsNullOrWhiteSpace(genre))
+            {
+                query = query.Where(x => x.Genre.GenreName.Contains(genre));
+            }
+
+            if (!string.IsNullOrWhiteSpace(author))
+            {
+                query = query.Where(x => x.Authors
+                .Any(x => (x.FirstName + " " + x.LastName).Contains(author)
+                || x.FirstName.Contains(author)
+                || x.LastName.Contains(author)));
+            }
+
+            switch (sortColumn)
+            {
+                case "Title":
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.Title) : query.OrderBy(x => x.Title);
+                    break;
+                case "genre":
+                    query = sortDirection == "desc" ? query.OrderByDescending(x=>x.Genre.GenreName): query.OrderBy(x => x.Genre.GenreName);
+                    break;
+            }
+
+            var totalRecords = query.Count();
+
+            var books = query.Skip((pageIndex-1) * pageSize).Take(pageSize).ToList();
+
+            return new PaginatedList<Book>(books, totalRecords, pageIndex, pageSize);
         }
     }
 }

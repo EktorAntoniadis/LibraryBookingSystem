@@ -1,3 +1,4 @@
+using LibraryBookingSystem.Common;
 using LibraryBookingSystem.Models;
 using LibraryBookingSystem.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,34 @@ namespace LibraryBookingSystem.Pages
             _bookRepository = bookRepository ?? throw new ArgumentNullException(nameof(bookRepository));
         }
 
-        public IEnumerable<Book> Books { get; set; } = new List<Book>();
+        public IEnumerable<Genre> Genres { get; set; }
+        public PaginatedList<Book> Books { get; set; }
+
+        [FromQuery]
+        public string? Title { get; set; }
+
+        [FromQuery]
+        public string? ISBN { get; set; }
+
+        [FromQuery]
+        public string? Genre { get; set; }
+
+        [FromQuery]
+        public string? Author { get; set; }
+
+        [FromQuery]
+        public string? SortDirection { get; set; }
+
+        [FromQuery]
+        public string? SortColumn { get; set; }
+
+        [FromQuery]
+        public int PageIndex { get; set; } = 1;
 
         public IActionResult OnGet()
         {
-            Books = _bookRepository.GetAllBooks();
+            Genres = _bookRepository.GetAllGenres();
+            Books = _bookRepository.GetBooks(PageIndex, 10, Title, Genre, Author, ISBN, SortColumn, SortDirection);
             return Page();
         }
 

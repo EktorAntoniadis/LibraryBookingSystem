@@ -12,17 +12,29 @@
         <tr>
             <th>Title</th>
             <th>Genre</th>
-            <th>Publisher</th>
+            <th>Publication Date</th>
+            <th>Authors</th>
+            <th>Publisher</th>           
+            <th>Pages</th>
+            <th>Language</th>
+            <th>Summary</th>
+            <th>Rating</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var book in Model.Books)
+        @foreach (var book in Model.Books.Records)
         {
             <tr>
                 <td>@book.Title</td>
                 <td>@book.Genre.GenreName</td>
+                <td>@book.PublicationDate</td>
+                <td>@string.Join(", ", book.Authors.Select(a=> a.FirstName + " " + a.LastName))</td>
                 <td>@book.Publisher.Name</td>
+                <td>@book.Pages</td>
+                <td>@book.Language</td>
+                <td>@book.Summary</td>
+                <td>@book.Rating</td>
                 <td>
                     <a asp-action="EditBook" asp-route-id="@book.BookId">Edit</a> |
                     <a asp-action="DeleteBook" asp-route-id="@book.BookId">Delete</a>

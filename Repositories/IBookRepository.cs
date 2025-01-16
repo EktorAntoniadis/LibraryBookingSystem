@@ -1,10 +1,19 @@
-﻿using LibraryBookingSystem.Models;
+﻿using LibraryBookingSystem.Common;
+using LibraryBookingSystem.Models;
 
 namespace LibraryBookingSystem.Repositories
 {
     public interface IBookRepository
     {
-        IEnumerable<Book> GetAllBooks();
+        PaginatedList<Book> GetBooks(
+            int pageIndex, 
+            int pageSize, 
+            string? searchTitle = null,
+            string? genre = null, 
+            string? author  = null,
+            string? ISBN = null,
+            string? sortColumn = "Title",
+            string? sortDirection = "asc");
         Book? GetBookById(int id);
         void AddBook(Book book);
         void UpdateBook(Book book);

@@ -7,6 +7,35 @@
 <h1>Library Publishers</h1>
 
 <h2>All Publishers</h2>
+
+<form method="get" class="mb-4">
+    <div class="row">
+        <div class="col-2">
+           @* Name *@
+        </div>
+        <div class="col-2">
+            @* Address *@
+        </div>
+        <div class="col-2">
+            @* City *@
+        </div>
+        <div class="col-2">
+            @* Country *@
+        </div>
+        <div class="col-2">
+            <select name="SortDirection" class="form-control">
+                <option value="">Select order direction</option>
+                <option value="asc" class="@(Model.SortDirection == "asc" ? "selected" : "")">Ascending</option>
+                <option value="desc" class="@(Model.SortDirection == "desc" ? "selected" : "")">Descending</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="/Publishers" class="btn btn-secondary">Reset</a>
+        </div>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>

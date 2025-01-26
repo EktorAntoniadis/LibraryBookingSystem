@@ -4,6 +4,28 @@
     ViewData["Authors"] = "Manage Authors";
 }
 
+<form method="get" class="mb-4">
+    <div class="row">
+        <div class="col-3">
+            @* First Name *@
+        </div>
+        <div class="col-3">
+            @* Last Name *@
+        </div>
+        <div class="col-3">
+            <select name="SortDirection" class="form-control">
+                <option value="">Select order direction</option>
+                <option value="asc" class="@(Model.SortDirection == "asc" ? "selected" : "")">Ascending</option>
+                <option value="desc" class="@(Model.SortDirection == "desc" ? "selected" : "")">Descending</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="/Authors" class="btn btn-secondary">Reset</a>
+        </div>
+    </div>
+</form>
+
 @if (Model.EditAuthor != null)
 {
     <h3>Edit Author</h3>

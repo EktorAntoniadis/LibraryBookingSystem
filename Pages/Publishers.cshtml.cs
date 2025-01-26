@@ -1,53 +1,74 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using LibraryBookingSystem.Common;
 using LibraryBookingSystem.Models;
 using LibraryBookingSystem.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace LibraryBookingSystem.Pages
 {
     public class PublishersModel : PageModel
     {
-        private readonly IBookRepository _repository;
+        private readonly IBookRepository _bookRepository;
 
-        public PublishersModel(IBookRepository repository)
+        public PublishersModel(IBookRepository bookRepository)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _bookRepository = bookRepository ?? throw new ArgumentNullException(nameof(bookRepository));
         }
 
-        [BindProperty]
-        public Publisher EditPublisher { get; set; }
-     
-        public List<Publisher> Publishers { get; set; } = new List<Publisher>();
+        public IEnumerable<Publisher> Publishers { get; set; }
+        public PaginatedList<Publisher> PaginatedPublishers { get; set; }
 
-        public void OnGet()
-        {
-            Publishers = _repository.GetAllPublishers().ToList();
-        }
+        [FromQuery]
+        public string? Name { get; set; }
 
-        public IActionResult OnPostUpdate(int id)
+        [FromQuery]
+        public string? Phone { get; set; }
+
+        [FromQuery]
+        public string? Address { get; set; }
+
+        [FromQuery]
+        public string? City { get; set; }
+
+        [FromQuery]
+        public string? Country { get; set; }
+
+        [FromQuery]
+        public string? SortDirection { get; set; }
+
+        [FromQuery]
+        public string? SortColumn { get; set; }
+
+        [FromQuery]
+        public int PageIndex { get; set; } = 1;
+
+        public IActionResult OnGet()
         {
-            var editPublisher = _repository.GetPublisherById(id);
-            if (editPublisher == null)
-            {
-                return NotFound();
-            }
-            EditPublisher = editPublisher;
-            Publishers = _repository.GetAllPublishers().ToList();
+            PaginatedPublishers = _bookRepository.GetPublishers(
+                PageIndex,
+                10,
+                Name,
+                Phone,
+                Address,
+                City,
+                Country,
+                SortColumn,
+                SortDirection
+            );
             return Page();
         }
 
-        public IActionResult OnPostEditPublisher()
+        public IActionResult OnPostDelete(int id)
         {
-            if (!string.IsNullOrWhiteSpace(EditPublisher.Name))
+            var publisher = _bookRepository.GetPublisherById(id);
+            if (publisher == null)
             {
-                _repository.UpdatePublisher(EditPublisher);
+                return NotFound();
             }
 
-            return RedirectToPage("/Publishers");
+            _bookRepository.DeletePublisher(id);
+            return RedirectToPage();
         }
-
-       
     }
 }

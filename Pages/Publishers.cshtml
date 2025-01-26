@@ -1,89 +1,67 @@
 ﻿@page
-@model LibraryBookingSystem.Pages.PublishersModel
+@model PublishersModel
 @{
-    ViewData["Publishers"] = "Manage Publishers";
+    ViewData["Publishers"] = "Library Publishers";
 }
 
-@if(Model.EditPublisher !=null)
-{
-    <h3>Edit Publisher</h3>
-    <form method="post" asp-page-handler="EditPublisher" id="editPublisherForm" class="justify-content-center align-items-center gap-3">
-        <input hidden asp-for="EditPublisher.PublisherId" />
-        <div class="form-group">
-            <label asp-for="EditPublisher.Name">Name</label>
-            <input class="form-control" asp-for="EditPublisher.Name" />
-        </div>
-        <div class="form-group">
-            <label asp-for="EditPublisher.Address">Publisher Address</label>
-            <input class="form-control" asp-for="EditPublisher.Address" />
-        </div>
-        <div class="form-group">
-            <label asp-for="EditPublisher.City">Publisher City</label>
-            <input class="form-control" asp-for="EditPublisher.City" />
-        </div>
-        <div class="form-group">
-            <label asp-for="EditPublisher.Country">Publisher Country</label>
-            <input class="form-control" asp-for="EditPublisher.Country" />
-        </div>
-        <div class="form-group">
-            <label asp-for="EditPublisher.Email">Publisher Email</label>
-            <input class="form-control" asp-for="EditPublisher.Email" />
-        </div>
-        <div class="form-group">
-            <label asp-for="EditPublisher.Website">Publisher Website</label>
-            <input class="form-control" asp-for="EditPublisher.Website" />
-        </div>
-        <div class="form-group">
-            <label asp-for="EditPublisher.Phone">Publisher Phone</label>
-            <input class="form-control" asp-for="EditPublisher.Phone" />
-        </div>
-        <button type="submit" class="btn btn-primary mb-3 mt-3">Edit Publisher</button>
-    </form>
-}
+<h1>Library Publishers</h1>
 
-<h1>Publishers</h1>
-<table class="table table-responsive table-striped">
+<h2>All Publishers</h2>
+<table class="table">
     <thead>
         <tr>
-            <th>Publisher Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Website</th>
+            <th>
+                <a asp-page="/Publishers" asp-route-SortColumn="Name" asp-route-SortDirection="@(Model.SortColumn == "Name" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    Name
+                </a>
+            </th>
+            <th>
+                <a asp-page="/Publishers" asp-route-SortColumn="Phone" asp-route-SortDirection="@(Model.SortColumn == "Phone" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    Phone
+                </a>
+            </th>
+            <th>
+                <a asp-page="/Publishers" asp-route-SortColumn="Address" asp-route-SortDirection="@(Model.SortColumn == "Address" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    Address
+                </a>
+            </th>
+            <th>
+                <a asp-page="/Publishers" asp-route-SortColumn="City" asp-route-SortDirection="@(Model.SortColumn == "City" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    City
+                </a>
+            </th>
+            <th>
+                <a asp-page="/Publishers" asp-route-SortColumn="Country" asp-route-SortDirection="@(Model.SortColumn == "Country" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    Country
+                </a>
+            </th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @if (Model.Publishers != null && Model.Publishers.Any())
-        {
-            foreach (var publisher in Model.Publishers)
-            {
-                <tr>
-                    <td>@publisher.PublisherId</td>
-                    <td>@publisher.Name</td>
-                    <td>@publisher.Email</td>
-                    <td>@publisher.Phone</td>
-                    <td>@publisher.Address</td>
-                    <td>@publisher.City</td>
-                    <td>@publisher.Country</td>
-                    <td><a href="@publisher.Website" target="_blank">@publisher.Website</a></td>
-                    <td>
-                        <form method="post" asp-page-handler="Update" asp-route-id="@publisher.PublisherId" style="display:inline">
-                            <button type="submit" class="btn btn-secondary">Edit</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        }
-        else
+        @foreach (var publisher in Model.PaginatedPublishers.Records)
         {
             <tr>
-                <td colspan="8">No publishers available</td>
+                <td>@publisher.Name</td>
+                <td>@publisher.Phone</td>
+                <td>@publisher.Address</td>
+                <td>@publisher.City</td>
+                <td>@publisher.Country</td>
+                <td>
+                    <a asp-page="EditPublisher" asp-route-id="@publisher.PublisherId">Edit</a>                    
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
+<div class="pagination">
+    @if (Model.PaginatedPublishers.HasPreviousPage)
+    {
+        <a asp-page="/Publishers" asp-route-PageIndex="@(Model.PaginatedPublishers.PageIndex - 1)" class="btn btn-secondary">Previous</a>
+    }
+    @if (Model.PaginatedPublishers.HasNextPage)
+    {
+        <a asp-page="/Publishers" asp-route-PageIndex="@(Model.PaginatedPublishers.PageIndex + 1)" class="btn btn-secondary">Next</a>
+    }
+</div>

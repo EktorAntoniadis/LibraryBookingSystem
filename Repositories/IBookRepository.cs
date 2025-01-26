@@ -23,13 +23,29 @@ namespace LibraryBookingSystem.Repositories
         void AddGenre(Genre genre);
         void UpdateGenre(Genre genre);
         void DeleteGenre(int id);
-        IEnumerable<Author> GetAllAuthors();
+        PaginatedList<Author> GetAuthors(
+            int pageIndex, 
+            int pageSize, 
+            string? firstName, 
+            string? lastName, 
+            string? sortColumn, 
+            string? sortDirection);
+
         Author? GetAuthorById(int id);
         void AddAuthor(Author author);
         void UpdateAuthor(Author author);
         void DeleteAuthor(int id);
 
-        IEnumerable<Publisher> GetAllPublishers();
+        PaginatedList<Publisher> GetPublishers(
+            int pageIndex,
+            int pageSize,
+            string? name = null,
+            string? phone = null,
+            string? address = null,
+            string? city = null,
+            string? country = null,
+            string? sortColumn = "Name",
+            string? sortDirection = "asc");
         Publisher? GetPublisherById(int id);
         void AddPublisher(Publisher publisher);
         void UpdatePublisher(Publisher publisher);

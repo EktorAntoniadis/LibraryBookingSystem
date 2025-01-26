@@ -1,4 +1,4 @@
-﻿Δ@page
+﻿@page
 @model LibraryBookingSystem.Pages.AuthorsModel
 @{
     ViewData["Authors"] = "Manage Authors";
@@ -26,13 +26,21 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>
+                <a asp-page="/Authors" asp-route-SortColumn="FirstName" asp-route-SortDirection="@(Model.SortColumn == "FirstName" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    First Name
+                </a>
+            </th>
+            <th>
+                <a asp-page="/Authors" asp-route-SortColumn="LastName" asp-route-SortDirection="@(Model.SortColumn == "LastName" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    Last Name
+                </a>
+            </th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var author in Model.Authors)
+        @foreach (var author in Model.Authors.Records)
         {
             <tr>
                 <td>@author.AuthorId</td>
@@ -47,3 +55,14 @@
         }
     </tbody>
 </table>
+
+<div class="pagination">
+    @if (Model.Authors.HasPreviousPage)
+    {
+        <a asp-page="/Authors" asp-route-PageIndex="@(Model.Authors.PageIndex - 1)" class="btn btn-secondary">Previous</a>
+    }
+    @if (Model.Authors.HasNextPage)
+    {
+        <a asp-page="/Authors" asp-route-PageIndex="@(Model.Authors.PageIndex + 1)" class="btn btn-secondary">Next</a>
+    }
+</div>

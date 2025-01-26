@@ -10,11 +10,27 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>Publication Date</th>
+            <th>
+                <a asp-page="/Books" asp-route-SortColumn="Title" asp-route-SortDirection="@(Model.SortColumn == "Title" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    Title
+                </a>
+            </th>
+            <th>
+                <a asp-page="/Books" asp-route-SortColumn="Genre" asp-route-SortDirection="@(Model.SortColumn == "Genre" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    Genre
+                </a>
+            </th>
+            <th>
+                <a asp-page="/Books" asp-route-SortColumn="PublicationDate" asp-route-SortDirection="@(Model.SortColumn == "PublicationDate" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    Publication Date
+                </a>
+            </th>
             <th>Authors</th>
-            <th>Publisher</th>           
+            <th>
+                <a asp-page="/Books" asp-route-SortColumn="Publisher" asp-route-SortDirection="@(Model.SortColumn == "Publisher" && Model.SortDirection == "ASC" ? "DESC" : "ASC")">
+                    Publisher
+                </a>
+            </th>
             <th>Pages</th>
             <th>Language</th>
             <th>Summary</th>
@@ -43,3 +59,14 @@
         }
     </tbody>
 </table>
+
+<div class="pagination">
+    @if (Model.Books.HasPreviousPage)
+    {
+        <a asp-page="/Books" asp-route-PageIndex="@(Model.Books.PageIndex - 1)" class="btn btn-secondary">Previous</a>
+    }
+    @if (Model.Books.HasNextPage)
+    {
+        <a asp-page="/Books" asp-route-PageIndex="@(Model.Books.PageIndex + 1)" class="btn btn-secondary">Next</a>
+    }
+</div>

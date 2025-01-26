@@ -184,7 +184,7 @@ namespace LibraryBookingSystem.Repositories.Implementations
                 case "Title":
                     query = sortDirection == "desc" ? query.OrderByDescending(x => x.Title) : query.OrderBy(x => x.Title);
                     break;
-                case "genre":
+                case "Genre":
                     query = sortDirection == "desc" ? query.OrderByDescending(x=>x.Genre.GenreName): query.OrderBy(x => x.Genre.GenreName);
                     break;
             }
@@ -194,6 +194,106 @@ namespace LibraryBookingSystem.Repositories.Implementations
             var books = query.Skip((pageIndex-1) * pageSize).Take(pageSize).ToList();
 
             return new PaginatedList<Book>(books, totalRecords, pageIndex, pageSize);
+        }
+
+        public PaginatedList<Author> GetAuthors(
+            int pageIndex, 
+            int pageSize,
+            string? firstName,
+            string? lastName,
+            string? sortColumn = "LastName", 
+            string? sortDirection = "asc")
+        {
+            var query = _context.Authors.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(firstName))
+            {
+                query  = query.Where(x=>x.FirstName.Contains(firstName));
+            }
+
+            if (!string.IsNullOrWhiteSpace(lastName))
+            {
+                query = query.Where(x => x.LastName.Contains(lastName));
+            }
+
+            if(!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
+            {
+                query = query.Where(x=> x.FirstName.Contains(firstName) && x.LastName.Contains(lastName));
+            }
+
+            switch (sortColumn)
+            {
+                case "FirstName":
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.FirstName) : query.OrderBy(x => x.FirstName);
+                    break;
+                default:
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.LastName) : query.OrderBy(x => x.LastName);
+                    break;
+            }
+
+            var totalRecords = query.Count();
+
+            var authors = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            return new PaginatedList<Author>(authors, totalRecords, pageIndex, pageSize);
+        }
+
+        public PaginatedList<Publisher> GetPublishers(
+            int pageIndex, 
+            int pageSize, 
+            string? name, 
+            string? phone, 
+            string? address, 
+            string? city, 
+            string? country, 
+            string? sortColumn = "Name", 
+            string? sortDirection = "asc")
+        {
+            var query = _context.Publishers.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                query = query.Where(x => x.Name.Contains(name));
+            }
+
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                query = query.Where(x => x.Phone.Contains(phone));
+            }
+
+            if (!string.IsNullOrWhiteSpace(address))
+            {
+                query = query.Where(x => x.Address.Contains(address));
+            }
+
+            if (!string.IsNullOrWhiteSpace(city))
+            {
+                query = query.Where(x => x.City.Contains(city));
+            }
+
+            if (!string.IsNullOrWhiteSpace(country))
+            {
+                query = query.Where(x => x.Country.Contains(country));
+            }
+
+            switch (sortColumn)
+            {
+                case "City":
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.City) : query.OrderBy(x => x.City);
+                    break;
+                case "Country":
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.Country) : query.OrderBy(x => x.Country);
+                    break;
+                default:
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.Name) : query.OrderBy(x => x.Name);
+                    break;
+            }
+
+            var totalRecords = query.Count();
+
+            var publishers = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            return new PaginatedList<Publisher>(publishers, totalRecords, pageIndex, pageSize);
         }
     }
 }

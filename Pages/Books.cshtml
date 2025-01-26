@@ -6,7 +6,45 @@
 
 <h1>Library Books</h1>
 
-<h2>All Books</h2>
+<form method="get" class="mb-4">
+    <div class="row">
+        <div class="col-2">
+            <input type="text" name="Title" value="@Model.Title" class="form-control" placeholder="Search by title" />
+        </div>
+        <div class="col-2">
+           <select name="Genre" class="form-control">
+               <option>All Genres</option>
+               @foreach(var genre in Model.Genres){
+                   <option value="@genre.GenreName">@genre.GenreName</option>
+               }
+           </select>
+        </div>
+        <div class="col-2">
+            <input type="text" name="Author" value="@Model.Author" class="form-control" placeholder="Search by author" />
+        </div>
+        <div class="col-2">
+            <select name="SortColumn" class="form-control">
+                <option value="">Select order by</option>
+                <option value="Title" class="@(Model.SortColumn == "Title" ? "selected" : "")">Title</option>
+                <option value="Genre" class="@(Model.SortColumn == "Genre" ? "selected" : "")">Genre</option>
+                <option value="Rating" class="@(Model.SortColumn == "Rating" ? "selected" : "")">Rating</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select name="SortDirection" class="form-control">
+                <option value="">Select order direction</option>
+                <option value="asc" class="@(Model.SortDirection == "asc" ? "selected" : "")">Ascending</option>
+                <option value="desc" class="@(Model.SortDirection == "desc" ? "selected" : "")">Descending</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="/Books" class="btn btn-secondary">Reset</a>
+        </div>
+
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -45,7 +83,7 @@
                 <td>@book.Title</td>
                 <td>@book.Genre.GenreName</td>
                 <td>@book.PublicationDate</td>
-                <td>@string.Join(", ", book.Authors.Select(a=> a.FirstName + " " + a.LastName))</td>
+                <td>@string.Join(", ", book.Authors.Select(a => a.FirstName + " " + a.LastName))</td>
                 <td>@book.Publisher.Name</td>
                 <td>@book.Pages</td>
                 <td>@book.Language</td>

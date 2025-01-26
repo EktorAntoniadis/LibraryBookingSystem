@@ -181,11 +181,14 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
             switch (sortColumn)
             {
-                case "Title":
-                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.Title) : query.OrderBy(x => x.Title);
-                    break;
                 case "Genre":
                     query = sortDirection == "desc" ? query.OrderByDescending(x=>x.Genre.GenreName): query.OrderBy(x => x.Genre.GenreName);
+                    break;
+                case "Rating":
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.Rating) : query.OrderBy(x => x.Rating);
+                    break;
+                default:
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.Title) : query.OrderBy(x => x.Title);
                     break;
             }
 

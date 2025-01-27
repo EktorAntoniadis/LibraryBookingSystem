@@ -16,7 +16,6 @@ namespace LibraryBookingSystem.Pages
             _bookRepository = bookRepository ?? throw new ArgumentNullException(nameof(bookRepository));
         }
 
-        public IEnumerable<Publisher> Publishers { get; set; }
         public PaginatedList<Publisher> PaginatedPublishers { get; set; }
 
         [FromQuery]
@@ -57,18 +56,6 @@ namespace LibraryBookingSystem.Pages
                 SortDirection
             );
             return Page();
-        }
-
-        public IActionResult OnPostDelete(int id)
-        {
-            var publisher = _bookRepository.GetPublisherById(id);
-            if (publisher == null)
-            {
-                return NotFound();
-            }
-
-            _bookRepository.DeletePublisher(id);
-            return RedirectToPage();
-        }
+        }       
     }
 }

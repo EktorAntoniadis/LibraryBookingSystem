@@ -11,16 +11,25 @@
 <form method="get" class="mb-4">
     <div class="row">
         <div class="col-2">
-           @* Name *@
+            <input type="text" name="Name" value="@Model.Name" class="form-control" placeholder="Search by name" />
         </div>
         <div class="col-2">
-            @* Address *@
+            <input type="text" name="Address " value="@Model.Address" class="form-control" placeholder="Search by address" />
         </div>
         <div class="col-2">
-            @* City *@
+            <input type="text" name="City" value="@Model.City" class="form-control" placeholder="Search by city" />
         </div>
         <div class="col-2">
-            @* Country *@
+            <input type="text" name="Country" value="@Model.Country" class="form-control" placeholder="Search by country" />
+        </div>
+        <div class="col-2">
+            <select name="SortColumn" class="form-control">
+                <option value="">Select order by</option>
+                <option value="Name" class="@(Model.SortColumn == "Name" ? "selected" : "")">Name</option>
+                <option value="Address" class="@(Model.SortColumn == "Address" ? "selected" : "")">Address</option>
+                <option value="City" class="@(Model.SortColumn == "City" ? "selected" : "")">City</option>
+                <option value="Country" class="@(Model.SortColumn == "Country" ? "selected" : "")">Country</option>
+            </select>
         </div>
         <div class="col-2">
             <select name="SortDirection" class="form-control">
@@ -33,10 +42,11 @@
             <button type="submit" class="btn btn-primary">Search</button>
             <a href="/Publishers" class="btn btn-secondary">Reset</a>
         </div>
+
     </div>
 </form>
 
-<table class="table">
+<table class="table table-responsive table-light">
     <thead>
         <tr>
             <th>

@@ -1,0 +1,23 @@
+﻿@page "{id:int}"
+@model LibraryBookingSystem.Pages.EditAuthorModel
+
+<h1>Edit Author</h1>
+
+<form method="post" class="mt-4" asp-page-handler="EditAuthor">
+    <input hidden asp-for="EditAuthor.AuthorId" />
+
+    <div class="form-group">
+        <label asp-for="EditAuthor.FirstName" class="form-label">First Name</label>
+        <input asp-for="EditAuthor.FirstName" class="form-control" />
+        <span asp-validation-for="EditAuthor.FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="EditAuthor.LastName" class="form-label">Last Name</label>
+        <input asp-for="EditAuthor.LastName" class="form-control" />
+        <span asp-validation-for="EditAuthor.LastName" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Save</button>
+    <a asp-page="/Authors" class="btn btn-secondary mt-3">Cancel</a>
+</form>

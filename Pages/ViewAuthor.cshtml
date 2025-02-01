@@ -1,0 +1,72 @@
+﻿@page "{id:int}"
+@model LibraryBookingSystem.Pages.ViewAuthorModel
+
+<h1>View Author</h1>
+
+<div class="mt-4">
+    <div class="form-group">
+        <label class="form-label">First Name</label>
+        <input class="form-control" value="@Model.Author.FirstName" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Last Name</label>
+        <input class="form-control" value="@Model.Author.LastName" readonly />
+    </div>
+</div>
+
+<h2>Author's books</h2>
+
+@if (Model.Author.Books.Any())
+{
+    <table class="table table-responsive table-light">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    ISBN
+                </th>
+                <th>
+                    Genre
+                </th>
+                <th>
+                    Rating
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var book in Model.Author.Books){
+                <tr>
+                    <td>
+                        @book.Title
+                    </td>
+                    <td>
+                        @book.ISBN
+                    </td>
+                    <td>
+                        @book.Genre.GenreName
+                    </td>
+                    <td>
+                        @book.Rating
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-primary" asp-page="ViewBook" asp-route-id="@book.BookId">
+                            View details
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+
+
+<a asp-page="/Authors" class="btn btn-secondary mt-3">Back</a>
+

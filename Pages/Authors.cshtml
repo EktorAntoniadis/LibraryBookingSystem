@@ -79,6 +79,7 @@
                 <td>@author.FirstName</td>
                 <td>@author.LastName</td>
                 <td>
+                    <a asp-page="/ViewAuthor" asp-route-id="@author.AuthorId" class="btn btn-outline-secondary">View</a>
                     <form method="post" asp-page-handler="Update" asp-route-id="@author.AuthorId" style="display:inline">
                         <button type="submit" class="btn btn-secondary">Edit</button>
                     </form>

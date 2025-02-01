@@ -94,13 +94,19 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public Author? GetAuthorById(int id)
         {
-            var author = _context.Authors.Find(id);
+            var author = _context.Authors
+                .Include(x=>x.Books)
+                .ThenInclude(x=>x.Genre)
+                .FirstOrDefault(x=>x.AuthorId == id);
             return author;
         }
 
         public Book? GetBookById(int id)
         {
-            var book = _context.Books.Find(id);
+            var book = _context.Books
+                .Include(x => x.Genre)
+                .Include(x=>x.Publisher)
+                .FirstOrDefault(x => x.BookId == id);
             return book;
         }
 

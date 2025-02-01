@@ -1,0 +1,54 @@
+﻿@page "{id:int}"
+@model ViewBookModel
+@{
+    ViewData["Title"] = "View Book";
+}
+
+<div class="mt-4">
+    <div class="form-group">
+        <label class="form-label">Title</label>
+        <input class="form-control" value="@Model.ViewBook.Title" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Publisher Name</label>
+        <input class="form-control" value="@Model.ViewBook.Publisher.Name" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">ISBN</label>
+        <input class="form-control" value="@Model.ViewBook.ISBN" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Rating</label>
+        <input class="form-control" value="@Model.ViewBook.Rating" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Publication Date</label>
+        <input class="form-control" value="@Model.ViewBook.PublicationDate" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Genre</label>
+        <input class="form-control" value="@Model.ViewBook.Genre.GenreName" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Language</label>
+        <input class="form-control" value="@Model.ViewBook.Language" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Pages</label>
+        <input class="form-control" value="@Model.ViewBook.Pages" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Summary</label>
+       <textarea class="form-control" readonly>@Model.ViewBook.Summary</textarea>
+    </div>
+</div>
+
+<a asp-page="/Books" class="btn btn-secondary mt-3">Back</a>

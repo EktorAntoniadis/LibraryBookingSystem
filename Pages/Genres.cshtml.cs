@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using LibraryBookingSystem.Models;
 using LibraryBookingSystem.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryBookingSystem.Pages
 {
+    [Authorize(Roles = "Librarian, Administrator, Member")]
     public class GenreModel : PageModel
     {
         private readonly IBookRepository _repository;

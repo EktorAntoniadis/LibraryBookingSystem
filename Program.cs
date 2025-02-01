@@ -19,6 +19,23 @@ namespace LibraryBookingSystem
 
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            builder.Services.AddAuthentication("LibraryBookingSystemScheme")
+                .AddCookie("LibraryBookingSystemScheme", options =>
+                {
+                    options.LoginPath = "/Login";
+                    options.AccessDeniedPath = "/Error";
+                });
+
+            builder.Services.AddAuthorization();
 
 
             var app = builder.Build();
@@ -35,10 +52,11 @@ namespace LibraryBookingSystem
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseSession();
             app.MapRazorPages();
+
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;

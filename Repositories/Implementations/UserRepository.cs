@@ -1,4 +1,5 @@
 ﻿using LibraryBookingSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryBookingSystem.Repositories.Implementations
 {
@@ -37,7 +38,9 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public User? GetByUserName(string userName)
         {
-            var user = _context.Users.Where(x => x.Username == userName).FirstOrDefault();
+            var user = _context.Users
+                .Include(x=>x.Role)
+                .Where(x => x.Username == userName).FirstOrDefault();
             return user;
         }
 

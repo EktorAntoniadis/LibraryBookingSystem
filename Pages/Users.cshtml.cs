@@ -1,10 +1,12 @@
 using LibraryBookingSystem.Models;
 using LibraryBookingSystem.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LibraryBookingSystem.Pages
 {
+    [Authorize(Roles = "Librarian, Administrator")]
     public class UsersModel : PageModel
     {
         private readonly IUserRepository _userRepository;

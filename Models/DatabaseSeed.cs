@@ -126,7 +126,7 @@ namespace LibraryBookingSystem.Models
 
             var roleMember = new Role
             {
-                RoleName = "Administrator",
+                RoleName = "Member",
                 Description = "This is the role of a member",
                 Permissions = new List<Permission>()
                   {

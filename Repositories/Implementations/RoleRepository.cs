@@ -1,4 +1,5 @@
 ﻿using LibraryBookingSystem.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace LibraryBookingSystem.Repositories.Implementations
@@ -19,12 +20,13 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public void Add(Permission permission)
         {
-            throw new NotImplementedException();
+            _context.Add(permission);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var role = GetById(id);
+            var role = GetRoleById(id);
             _context.Roles.Remove(role);
             _context.SaveChanges();
         }
@@ -47,28 +49,31 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public IEnumerable<Permission> GetAllPermissions()
         {
-            throw new NotImplementedException();
+            var permissions = _context.Permissions.Include(x => x.Roles).ToList();
+            return permissions;
         }
 
         public IEnumerable<Role> GetAllRoles()
         {
-            throw new NotImplementedException();
-        }
-
-        public Role? GetById(int id)
-        {
-            var role = _context.Roles.Find(id);
-            return role;
+            var roles = _context.Roles.ToList();
+            return roles;
         }
 
         public Permission? GetPermissionById(int id)
         {
-            throw new NotImplementedException();
+            var permission = _context.Permissions
+                .Include(x => x.Roles)
+                .FirstOrDefault(x => x.PermissionId == id);
+
+            return permission;
         }
 
         public Role? GetRoleById(int id)
         {
-            throw new NotImplementedException();
+            var role = _context.Roles
+                .Include(x => x.Permissions)
+                .FirstOrDefault(x => x.RoleId == id);
+            return role;
         }
 
         public void Update(Role role)
@@ -79,7 +84,8 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public void Update(Permission permission)
         {
-            throw new NotImplementedException();
+            _context.Permissions.Update(permission);
+            _context.SaveChanges();
         }
     }
 }

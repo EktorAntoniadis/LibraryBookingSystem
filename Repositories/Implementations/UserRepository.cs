@@ -26,13 +26,15 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public IEnumerable<User> GetAll()
         {
-            var user = _context.Users.ToList();
+            var user = _context.Users.Include(x=>x.Role).ToList();
             return user;
         }
 
         public User? GetById(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = _context.Users
+                .Include(x=>x.Role)
+                .FirstOrDefault(x=>x.UserId == id);
             return user;
         }
 

@@ -15,9 +15,9 @@ namespace LibraryBookingSystem.Models
         [ForeignKey("Role")]
         public int RoleId { get; set; }
         public Role Role { get; set; }
-        public string Username { get; internal set; }
-        public string PhoneNumber { get; internal set; }
-        public string Password { get; internal set; }
+        public string Username { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Password { get; set; }
         
     }
 }

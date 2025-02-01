@@ -1,0 +1,56 @@
+﻿@page "{id:int}"
+@model LibraryBookingSystem.Pages.EditUserModel
+@{
+    ViewData["Title"] = "Manage User";
+}
+
+<h2>Edit User</h2>
+
+<form method="post" asp-page-handler="UpdateUser" id="editUserForm" class="justify-content-center align-items-center gap-3">
+    <input type="hidden" asp-for="EditUser.UserId" />
+    <div class="form-group">
+        <label class="form-label" asp-for="EditUser.FirstName">First Name</label>
+        <input class="form-control" asp-for="EditUser.FirstName" />
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="EditUser.LastName">Last Name</label>
+        <input class="form-control" asp-for="EditUser.LastName" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="EditUser.Username">Username</label>
+        <input class="form-control" asp-for="EditUser.Username" />
+    </div>
+
+    <input asp-for="EditUser.Password" type="hidden" />
+
+    <div class="form-group">
+        <label class="form-label" asp-for="EditUser.Email">Email</label>
+        <input class="form-control" asp-for="EditUser.Email" />
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="EditUser.PhoneNumber">Phone Number</label>
+        <input class="form-control" type="text" asp-for="EditUser.PhoneNumber" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="EditUser.RegisteredDate">Registered Date</label>
+        <input readonly class="form-control" type="date" asp-for="EditUser.RegisteredDate" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="EditUser.RoleId">Role</label>
+        <select class="form-control form-select" asp-for="EditUser.RoleId">
+            @if (Model.AllRoles != null)
+            {
+                @foreach (var role in Model.AllRoles)
+                {
+                    <option value="@role.RoleId" selected="@(role.RoleId == Model.EditUser.RoleId ? "selected" : null)">
+                        @role.RoleName
+                    </option>
+                }
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Edit User</button>
+</form>

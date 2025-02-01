@@ -15,6 +15,7 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +25,10 @@
                     <td>@user.UserId</td>
                     <td>@user.Username</td>
                     <td>@user.Email</td>
-                    <td>@user.Role</td>
+                    <td>@user.Role.RoleName</td>
+                    <td>
+                        <a asp-page="/EditUser" class="btn btn-warning" asp-route-id="@user.UserId">Edit</a>
+                    </td>
                 </tr>
             }
         </tbody>

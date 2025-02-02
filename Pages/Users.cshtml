@@ -8,7 +8,7 @@
 
 @if (Model.Users != null && Model.Users.Any())
 {
-    <table class="table">
+    <table class="table table-responsive table-light">
         <thead>
             <tr>
                 <th>ID</th>
@@ -27,6 +27,7 @@
                     <td>@user.Email</td>
                     <td>@user.Role.RoleName</td>
                     <td>
+                        <a asp-page="/ViewUser" class="btn btn-info" asp-route-id="@user.UserId">View</a>
                         <a asp-page="/EditUser" class="btn btn-warning" asp-route-id="@user.UserId">Edit</a>
                     </td>
                 </tr>

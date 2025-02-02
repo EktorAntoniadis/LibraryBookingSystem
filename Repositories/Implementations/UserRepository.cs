@@ -34,6 +34,7 @@ namespace LibraryBookingSystem.Repositories.Implementations
         {
             var user = _context.Users
                 .Include(x=>x.Role)
+                .ThenInclude(x=>x.Permissions)
                 .FirstOrDefault(x=>x.UserId == id);
             return user;
         }

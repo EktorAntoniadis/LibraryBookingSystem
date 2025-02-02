@@ -1,0 +1,63 @@
+﻿@page "{id:int}"
+@model LibraryBookingSystem.Pages.ViewUserModel
+
+<h1>View User</h1>
+
+<div class="mt-4">
+    <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-control" value="@Model.User.FirstName @Model.User.LastName" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Email</label>
+        <input class="form-control" value="@Model.User.Email" readonly />
+    </div>
+
+    <div class="form-group mt-3">
+        <label class="form-label">Role</label>
+        <input class="form-control" value="@Model.User.Role.RoleName" readonly />
+    </div>
+</div>
+
+<h2>Permissions</h2>
+
+@if (Model.User.Role.Permissions.Any())
+{
+  <table class="table table-responsive table-light">
+      <thead>
+          <tr>
+              <th>
+                  Permission Id
+              </th>
+                <th>
+                    Permission Name
+                </th>
+                <th>
+                    Description
+                </th>
+          </tr>
+      </thead>
+      <tbody>
+          @foreach(var permission in Model.User.Role.Permissions){
+              <tr>
+                  <td>
+                      @permission.PermissionId
+                  </td>
+                    <td>
+                        @permission.PermissionName
+                    </td>
+                    <td>
+                        @permission.Description
+                    </td>
+              </tr>
+          }
+      </tbody>
+  </table>
+}
+else
+{
+    <p>No permissions assigned.</p>
+}
+
+<a asp-page="/Users" class="btn btn-secondary mt-3">Back</a>

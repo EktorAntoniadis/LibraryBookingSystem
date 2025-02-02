@@ -5,50 +5,67 @@
 }
 
 <div class="mt-4">
-    <div class="form-group">
-        <label class="form-label">Title</label>
-        <input class="form-control" value="@Model.ViewBook.Title" readonly />
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group text-center">
+                <svg width="150" height="200" viewBox="0 0 150 200" xmlns="http://www.w3.org/2000/svg" fill="#a1a2a3">
+                    <rect width="100%" height="100%" rx="10" ry="10" fill="#a1a2e3" stroke="#585858" stroke-width="10" />
+                    <text x="50%" y="50%" text-anchor="middle" font-size="16" fill="#000" dy=".3em">@Model.ViewBook.Title</text>
+
+                </svg>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Title</label>
+                <input class="form-control" value="@Model.ViewBook.Title" readonly />
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="form-label">Publisher Name</label>
+                <input class="form-control" value="@Model.ViewBook.Publisher.Name" readonly />
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="form-label">ISBN</label>
+                <input class="form-control" value="@Model.ViewBook.ISBN" readonly />
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="form-label">Rating</label>
+                <input class="form-control" value="@Model.ViewBook.Rating" readonly />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group mt-3">
+                <label class="form-label">Publication Date</label>
+                <input class="form-control" value="@Model.ViewBook.PublicationDate" readonly />
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="form-label">Genre</label>
+                <input class="form-control" value="@Model.ViewBook.Genre.GenreName" readonly />
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="form-label">Language</label>
+                <input class="form-control" value="@Model.ViewBook.Language" readonly />
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="form-label">Pages</label>
+                <input class="form-control" value="@Model.ViewBook.Pages" readonly />
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="form-label">Summary</label>
+                <textarea class="form-control" readonly>@Model.ViewBook.Summary</textarea>
+            </div>
+            <div class="form-group mt-3">
+                <a asp-page="/Books" class="btn btn-secondary">Back</a>
+                <button type="submit" class="btn btn-primary">Check out</button>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group mt-3">
-        <label class="form-label">Publisher Name</label>
-        <input class="form-control" value="@Model.ViewBook.Publisher.Name" readonly />
-    </div>
 
-    <div class="form-group mt-3">
-        <label class="form-label">ISBN</label>
-        <input class="form-control" value="@Model.ViewBook.ISBN" readonly />
-    </div>
-
-    <div class="form-group mt-3">
-        <label class="form-label">Rating</label>
-        <input class="form-control" value="@Model.ViewBook.Rating" readonly />
-    </div>
-
-    <div class="form-group mt-3">
-        <label class="form-label">Publication Date</label>
-        <input class="form-control" value="@Model.ViewBook.PublicationDate" readonly />
-    </div>
-
-    <div class="form-group mt-3">
-        <label class="form-label">Genre</label>
-        <input class="form-control" value="@Model.ViewBook.Genre.GenreName" readonly />
-    </div>
-
-    <div class="form-group mt-3">
-        <label class="form-label">Language</label>
-        <input class="form-control" value="@Model.ViewBook.Language" readonly />
-    </div>
-
-    <div class="form-group mt-3">
-        <label class="form-label">Pages</label>
-        <input class="form-control" value="@Model.ViewBook.Pages" readonly />
-    </div>
-
-    <div class="form-group mt-3">
-        <label class="form-label">Summary</label>
-       <textarea class="form-control" readonly>@Model.ViewBook.Summary</textarea>
-    </div>
 </div>
 
-<a asp-page="/Books" class="btn btn-secondary mt-3">Back</a>

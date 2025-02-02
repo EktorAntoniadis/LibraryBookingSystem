@@ -2,6 +2,7 @@
 @model LibraryBookingSystem.Pages.AuthorsModel
 @{
     ViewData["Authors"] = "Manage Authors";
+    var userRole = Model.HttpContext.Session.GetString("UserRole");
 }
 
 <h1>Library Authors</h1>
@@ -79,10 +80,13 @@
                 <td>@author.FirstName</td>
                 <td>@author.LastName</td>
                 <td>
+                    @if (userRole == "Librarian" || userRole == "Administrator") 
+                    {
+                        <form method="post" asp-page-handler="Update" asp-route-id="@author.AuthorId" style="display:inline">
+                            <button type="submit" class="btn btn-secondary">Edit</button>
+                        </form>
+                    }
                     <a asp-page="/ViewAuthor" asp-route-id="@author.AuthorId" class="btn btn-outline-secondary">View</a>
-                    <form method="post" asp-page-handler="Update" asp-route-id="@author.AuthorId" style="display:inline">
-                        <button type="submit" class="btn btn-secondary">Edit</button>
-                    </form>
                 </td>
             </tr>
         }

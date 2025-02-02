@@ -32,6 +32,8 @@ namespace LibraryBookingSystem.Repositories
             string? sortDirection);
 
         Author? GetAuthorById(int id);
+
+        Author? GetAuthorByName(string firstName, string lastName);
         void AddAuthor(Author author);
         void UpdateAuthor(Author author);
         void DeleteAuthor(int id);
@@ -46,6 +48,8 @@ namespace LibraryBookingSystem.Repositories
             string? country = null,
             string? sortColumn = "Name",
             string? sortDirection = "asc");
+
+        IEnumerable<Publisher> GetAllPublishers();
         Publisher? GetPublisherById(int id);
         void AddPublisher(Publisher publisher);
         void UpdatePublisher(Publisher publisher);

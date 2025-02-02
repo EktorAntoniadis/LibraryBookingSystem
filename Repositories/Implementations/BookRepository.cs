@@ -304,5 +304,13 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
             return new PaginatedList<Publisher>(publishers, totalRecords, pageIndex, pageSize);
         }
+
+        public Author? GetAuthorByName(string firstName, string lastName)
+        {
+            var existingAuthor = _context.Authors
+                .Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName))
+                .FirstOrDefault();
+            return existingAuthor;
+        }
     }
 }

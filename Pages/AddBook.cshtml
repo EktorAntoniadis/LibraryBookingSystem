@@ -1,0 +1,69 @@
+﻿@page
+@model LibraryBookingSystem.Pages.AddBookModel
+@{
+}
+
+<form method="post" asp-page-handler="AddNewBook">
+    <div class="mt-4">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group mt-3">
+                    <label class="form-label" asp-for="NewBook.Title">Title</label>
+                    <input class="form-control" type="text" asp-for="NewBook.Title" value="@Model.NewBook.Title" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label class="form-label" asp-for="NewBook.ISBN">ISBN</label>
+                    <input class="form-control" type="text" asp-for="NewBook.ISBN" value="@Model.NewBook.ISBN" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label class="form-label" asp-for="NewBook.Language">Language</label>
+                    <input class="form-control" type="text" asp-for="NewBook.Language" value="@Model.NewBook.Language" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label class="form-label" asp-for="NewBook.Summary">Summary</label>
+                    <textarea class="form-control" asp-for="NewBook.Summary">@Model.NewBook.Summary</textarea>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group mt-3">
+                    <label asp-for="NewBook.PublicationDate" class="form-label">Publication Date</label>
+                    <input asp-for="NewBook.PublicationDate" class="form-control"  type="date" value="@Model.NewBook.PublicationDate"/>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="NewBook.Pages" class="form-label">Pages</label>
+                    <input asp-for="NewBook.Pages" class="form-control" type="number" value="@Model.NewBook.Pages" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="NewBook.PublisherId" class="form-label">Publisher Name</label>
+                    <select asp-for="NewBook.PublisherId" class="form-select">
+                        @foreach(var publisher in Model.Publishers){
+                            <option value="@publisher.PublisherId">@publisher.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="NewBook.GenreID" class="form-label">Genre</label>
+                    <select asp-for="NewBook.GenreID" class="form-select">
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <option value="@genre.GenreID">@genre.GenreName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="NewBook.Authors" class="form-label">Authors</label>
+                    <input asp-for="NewAuthors" class="form-control" value="@Model.NewAuthors" />
+                </div>
+                <div class="form-group mt-3">
+                    <a asp-page="/Books" class="btn btn-secondary">Back</a>
+                    <button type="submit" class="btn btn-primary">Add New Book</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

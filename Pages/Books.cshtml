@@ -2,9 +2,16 @@
 @model BooksModel
 @{
     ViewData["Books"] = "Library Books";
+    var userRole = Model.HttpContext.Session.GetString("UserRole");
 }
 
 <h1>Library Books</h1>
+
+@if (userRole == "Administrator" || userRole == "Librarian")
+{
+    <a asp-page="AddBook" class="btn btn-primary mt-3 mb-3">Add new book to collection</a>
+
+}
 
 <form method="get" class="mb-4">
     <div class="row">
@@ -12,12 +19,13 @@
             <input type="text" name="Title" value="@Model.Title" class="form-control" placeholder="Search by title" />
         </div>
         <div class="col-2">
-           <select name="Genre" class="form-control">
-               <option>All Genres</option>
-               @foreach(var genre in Model.Genres){
-                   <option value="@genre.GenreName">@genre.GenreName</option>
-               }
-           </select>
+            <select name="Genre" class="form-control">
+                <option value="">All Genres</option>
+                @foreach (var genre in Model.Genres)
+                {
+                    <option value="@genre.GenreName">@genre.GenreName</option>
+                }
+            </select>
         </div>
         <div class="col-2">
             <input type="text" name="Author" value="@Model.Author" class="form-control" placeholder="Search by author" />
@@ -87,12 +95,31 @@
                 <td>@book.Publisher.Name</td>
                 <td>@book.Pages</td>
                 <td>@book.Language</td>
-                <td>@book.Summary</td>
+                <td>
+                    @if (@book.Summary.Length <= 50)
+                    {
+                        @book.Summary
+                    }
+                    else
+                    {
+                        @($"{book.Summary.Substring(0, 50)}...")
+                    }
+                </td>
                 <td>@book.Rating</td>
                 <td>
-                    <a class="btn btn-link" asp-route-id="@book.BookId" asp-page="/ViewBook">View</a>
-                    <a class="btn btn-link" asp-action="EditBook" asp-route-id="@book.BookId">Edit</a> 
-                    <a class="btn btn-link" asp-action="DeleteBook" asp-route-id="@book.BookId">Delete</a>
+                    <div class="btn-group" role="group">
+                        @if (userRole == "Member")
+                        {
+                            <a class="btn btn-outline-primary" asp-route-id="@book.BookId" asp-page="/ViewBook">View</a>
+
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-primary" asp-action="EditBook" asp-route-id="@book.BookId">Edit</a>
+                            <a class="btn btn-outline-primary" asp-action="DeleteBook" asp-route-id="@book.BookId">Delete</a>
+
+                        }
+                    </div>
                 </td>
             </tr>
         }

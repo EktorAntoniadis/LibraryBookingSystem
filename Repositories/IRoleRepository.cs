@@ -7,6 +7,7 @@ namespace LibraryBookingSystem.Repositories
         IEnumerable<Role> GetAllRoles();
         Role? GetRoleById(int id);
 
+        Role? GetRoleByName(string name);
         void Add(Role role);
         void Update(Role role);
         void DeleteRole(int id);

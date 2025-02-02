@@ -76,6 +76,12 @@ namespace LibraryBookingSystem.Repositories.Implementations
             return role;
         }
 
+        public Role? GetRoleByName(string name)
+        {
+            var role = _context.Roles.FirstOrDefault(x => x.RoleName == name);
+            return role;
+        }
+
         public void Update(Role role)
         {
             _context.Roles.Update(role);

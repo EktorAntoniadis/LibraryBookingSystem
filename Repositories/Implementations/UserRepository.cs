@@ -30,6 +30,12 @@ namespace LibraryBookingSystem.Repositories.Implementations
             return user;
         }
 
+        public User? GetByEmailOrUsername(User user)
+        {
+            var existingUser = _context.Users.FirstOrDefault(x => x.Username == user.Username || x.Email == user.Email);
+            return existingUser;
+        }
+
         public User? GetById(int id)
         {
             var user = _context.Users

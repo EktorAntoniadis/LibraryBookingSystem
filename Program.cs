@@ -20,6 +20,7 @@ namespace LibraryBookingSystem
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddSession(options =>
             {

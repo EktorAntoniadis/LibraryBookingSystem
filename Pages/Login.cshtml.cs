@@ -76,6 +76,11 @@ public class LoginModel : PageModel
 
         await HttpContext.SignInAsync("LibraryBookingSystemScheme", new ClaimsPrincipal(claimsIdentity), authenticationProperties);
 
+        if(user.Role.RoleName == "Administrator" || user.Role.RoleName == "Librarian")
+        {
+            return RedirectToPage("/Users");
+        }
+
         return RedirectToPage("/Books");
     }
 }

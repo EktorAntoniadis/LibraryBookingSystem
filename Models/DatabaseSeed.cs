@@ -270,11 +270,6 @@ namespace LibraryBookingSystem.Models
 
         private void SeedBogusData()
         {
-            if (_context.Authors.Any() || _context.Publishers.Any() || _context.Books.Any())
-            {
-                return;
-            }
-
             var libraryFaker = new Faker();
 
             var publisherList = new List<Publisher>();
@@ -293,7 +288,11 @@ namespace LibraryBookingSystem.Models
                 });
             }
 
-            _context.Publishers.AddRange(publisherList);
+
+            if (!_context.Publishers.Any()) { 
+                _context.Publishers.AddRange(publisherList);
+                _context.SaveChanges();
+            }
 
             var authorlist = new List<Author>();
 
@@ -306,8 +305,11 @@ namespace LibraryBookingSystem.Models
                 });
             }
 
-            _context.Authors.AddRange(authorlist);
-            _context.SaveChanges();
+            if (!_context.Authors.Any())
+            {
+                _context.Authors.AddRange(authorlist);
+                _context.SaveChanges();
+            }
 
             var bookList = new List<Book>();
 
@@ -329,8 +331,29 @@ namespace LibraryBookingSystem.Models
                 });
             }
 
-            _context.Books.AddRange(bookList);
-            _context.SaveChanges();
+            if (!_context.Books.Any())
+            {
+                _context.Books.AddRange(bookList);
+                _context.SaveChanges();
+            }
+
+            var inventoryList = new List<Inventory>();
+
+            foreach (var book in _context.Books)
+            {
+                inventoryList.Add(new Inventory
+                {
+                    AvailableNumberOfCopies = libraryFaker.Random.Int(1, 10),
+                    TotalNumberOfCopies = 10,
+                    BookId = book.BookId
+                });
+            }
+
+            if (!_context.Inventories.Any())
+            {
+                _context.Inventories.AddRange(inventoryList);
+                _context.SaveChanges();
+            }
         }
     }
 }

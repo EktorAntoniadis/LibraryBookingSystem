@@ -1,0 +1,101 @@
+﻿@page
+@model LibraryBookingSystem.Pages.RentedUserBooksModel
+@{
+    ViewData["Title"] = "Rented User Books";
+    var userRole = Model.HttpContext.Session.GetString("UserRole");
+
+}
+
+@if (userRole == "Member")
+{
+    <h1>My rented books</h1>
+}
+else
+{
+    <h1>Rented books</h1>
+}
+
+@if (Model.RentedUserBooks.Any())
+{
+    <table class="table table-responsive table-light">
+        <thead>
+            <tr>
+                <th>
+                    Book Title
+                </th>
+                <th>
+                    Status
+                </th>
+                @if (userRole == "Administrator" || userRole == "Librarian")
+                {
+                    <th>User</th>
+                }
+                <th>
+                    Rented Date
+                </th>
+                <th>
+                    Due Date
+                </th>
+                <th>
+                    Return Date
+                </th>
+                <th>
+                    Overdue
+                </th>
+                @if (userRole == "Administrator" || userRole == "Librarian")
+                {
+                    <th>Actions</th>
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rentedBook in Model.RentedUserBooks)
+            {
+                <tr>
+                    <td>
+                        @rentedBook.Book.Title
+                    </td>
+                    <td>
+                        @rentedBook.Status
+                    </td>
+                    @if (userRole == "Administrator" || userRole == "Librarian")
+                    {
+                        <td>
+                            @rentedBook.User.FirstName @rentedBook.User.LastName
+                        </td>
+                    }
+                    <td>
+                        @rentedBook.RentedDate
+                    </td>
+                    <td>
+                        @rentedBook.DueDate
+                    </td>
+                    <td>
+                        @if (rentedBook.Status == "Returned")
+                        {
+                            @rentedBook.ReturnDate
+                        }
+                    </td>
+                    <td>
+                        @if (rentedBook.ReturnDate > rentedBook.DueDate)
+                        {
+                            <p>Yes</p>
+                        }
+                        else
+                        {
+                            <p>No</p>
+                        }
+
+                    </td>
+                    @if (userRole == "Administrator" || userRole == "Librarian")
+                    {
+                        <td>
+                            <a asp-page="EditRentedUserBook" class="btn btn-outline-primary" asp-route-id="@rentedBook.RentedUserBookId">Edit / Check in</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

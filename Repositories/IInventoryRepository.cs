@@ -1,11 +1,19 @@
-﻿using LibraryBookingSystem.Models;
+﻿using LibraryBookingSystem.Common;
+using LibraryBookingSystem.Models;
 
 namespace LibraryBookingSystem.Repositories
 {
     public interface IInventoryRepository
     {
-        IEnumerable<Inventory> GetAllInventories();
+        PaginatedList<Inventory> GetInventory(
+            int pageIndex,
+            int pageSize,
+            int? availableNumberOfCopies,
+            string? bookTitle,
+            string? sortColumn = "Title",
+            string? sortDirection = "asc");
         Inventory? GetInventoryById(int id);
+        Inventory? GetInventoryByBookId(int bookId);
         void AddInventory(Inventory inventory);
         void UpdateInventory(Inventory inventory);
         void DeleteInventory(int id);
@@ -13,5 +21,7 @@ namespace LibraryBookingSystem.Repositories
         void UpdateRentedBook(RentedUserBook rentedBook);
         RentedUserBook GetRentedUserBook(int id);
         IEnumerable<RentedUserBook> GetUserRentedBooks(int userId);
+        IEnumerable<RentedUserBook> GetAllMembersRentedBooks();
+        bool IsBookRented(int userId, int bookId);
     }
 }

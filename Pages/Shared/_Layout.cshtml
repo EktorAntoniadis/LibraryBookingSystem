@@ -59,9 +59,14 @@
                         @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item pe-2">Hello @userRole @User.Identity.Name</li>
-                            <form method="post" asp-page="/Logout" onsubmit="return confirm('Are you sure you want to log out?')">
-                                <button type="submit" class="nav-link btn btn-link text-dark p-0">Logout</button>
+                            <li class="nav-item pe-2">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/RentedUserBooks">Rented User Books</a>
+                            </li>
+                            <li class="nav-item pe-2">       
+                                <form method="post" asp-page="/Logout" onsubmit="return confirm('Are you sure you want to log out?')">
+                                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
                             </form>
+                            </li>
                         }
                         else
                         {

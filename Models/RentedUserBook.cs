@@ -8,11 +8,9 @@ namespace LibraryBookingSystem.Models
         [Key]
         public int RentedUserBookId { get; set; }
 
-        //Βάλε μου την κλάση που πρέπει για το User.
         [ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }
-        //Βάλε μου την κλάση που πρέπει για το Book.
         [ForeignKey("Book")]
         public int BookId { get; set; }
         public Book Book { get; set; }
@@ -20,5 +18,8 @@ namespace LibraryBookingSystem.Models
         public DateOnly DueDate { get; set; }
         public DateOnly ReturnDate { get; set; }
         public string Status { get; set;}
+        public bool IsOverdue => DateOnly.FromDateTime(DateTime.Now) > DueDate;
+        public int OverdueDays => IsOverdue ? (DateOnly.FromDateTime(DateTime.Today).DayNumber - DueDate.DayNumber) : 0;
+
     }
 }

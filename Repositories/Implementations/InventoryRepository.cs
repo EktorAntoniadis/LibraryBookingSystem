@@ -1,4 +1,6 @@
-﻿using LibraryBookingSystem.Models;
+﻿using LibraryBookingSystem.Common;
+using LibraryBookingSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryBookingSystem.Repositories.Implementations
 {
@@ -20,12 +22,12 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public void AddRentedBook(RentedUserBook rentedBook)
         {
-            throw new NotImplementedException();
+            _context.RentedUserBooks.Add(rentedBook);
+            _context.SaveChanges();
         }
 
         public void DeleteInventory(int id)
         {
-            //Υλοποίηση αυτής της μεθόδου
             var inventory = GetInventoryById(id);
             _context.Inventories.Remove(inventory);
             _context.SaveChanges();
@@ -37,6 +39,64 @@ namespace LibraryBookingSystem.Repositories.Implementations
             return inventories;
         }
 
+        public IEnumerable<RentedUserBook> GetAllMembersRentedBooks()
+        {
+            var allMembersRentedBooks = _context
+                .RentedUserBooks
+                .Include(x => x.Book)
+                .Include(x => x.User)                
+                .ToList();
+            return allMembersRentedBooks;
+        }
+
+        public PaginatedList<Inventory> GetInventory(
+            int pageIndex,
+            int pageSize, 
+            int? availableNumberOfCopies, 
+            string? bookTitle, 
+            string? sortColumn = "Title",
+            string? sortDirection = "asc")
+        {
+            var query = _context.Inventories
+                 .Include(x => x.Book)
+                 .ThenInclude(x => x.Genre)
+                 .AsQueryable();
+
+            if (availableNumberOfCopies != null)
+            {
+                query = query.Where(x => x.AvailableNumberOfCopies == availableNumberOfCopies);
+            }
+
+            if (!string.IsNullOrEmpty(bookTitle))
+            {
+                query = query.Where(x => x.Book.Title.Contains(bookTitle));
+            }
+
+            switch (sortColumn)
+            {
+                case "AvailableNumberOfCopies":
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.AvailableNumberOfCopies) : query.OrderBy(x => x.AvailableNumberOfCopies);
+                    break;
+                default:
+                    query = sortDirection == "desc" ? query.OrderByDescending(x => x.Book.Title) : query.OrderBy(x => x.Book.Title);
+                    break;
+            }
+
+            var totalRecords = query.Count();
+
+            var inventories = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            return new PaginatedList<Inventory>(inventories, totalRecords, pageIndex, pageSize);
+        }
+
+        public Inventory? GetInventoryByBookId(int bookId)
+        {
+            var inventory = _context.Inventories
+                  .Include(x => x.Book)
+                 .FirstOrDefault(x => x.BookId == bookId);
+            return inventory;
+        }
+
         public Inventory? GetInventoryById(int id)
         {
             var inventory = _context.Inventories.Find(id);
@@ -45,12 +105,29 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public RentedUserBook GetRentedUserBook(int id)
         {
-            throw new NotImplementedException();
+            var rentedUserBook = _context.RentedUserBooks
+                .Include(x => x.Book)
+                .Include(x => x.User)
+                .FirstOrDefault(x => x.RentedUserBookId == id);
+            return rentedUserBook;
         }
 
         public IEnumerable<RentedUserBook> GetUserRentedBooks(int userId)
         {
-            throw new NotImplementedException();
+            var rentedUserBooks = _context.RentedUserBooks
+                .Include(x => x.Book)
+                .Include(x => x.User)
+                .Where(x => x.UserId == userId).ToList();
+            return rentedUserBooks;
+        }
+
+        public bool IsBookRented(int userId, int bookId)
+        {
+            var existingRentedBook = _context.RentedUserBooks
+                 .Where(x => x.UserId == userId && x.BookId == bookId)
+                 .FirstOrDefault();
+
+            return existingRentedBook != null;
         }
 
         public void UpdateInventory(Inventory inventory)
@@ -61,7 +138,8 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public void UpdateRentedBook(RentedUserBook rentedBook)
         {
-            throw new NotImplementedException();
+            _context.RentedUserBooks.Update(rentedBook);
+            _context.SaveChanges();
         }
     }
 }

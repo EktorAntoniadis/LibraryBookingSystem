@@ -1,0 +1,85 @@
+﻿@page "{id:int}"
+@model LibraryBookingSystem.Pages.EditBookModel
+
+@{
+    ViewData["Title"] = "Edit Book";
+}
+
+<h1>Edit Book</h1>
+
+<form method="post" asp-page-handler="EditBook">
+    <input type="hidden" asp-for="EditBook.BookId" />
+
+    <div class="mt-4">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group mt-3">
+                    <label class="form-label" asp-for="EditBook.Title">Title</label>
+                    <input class="form-control" type="text" asp-for="EditBook.Title" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label class="form-label" asp-for="EditBook.ISBN">ISBN</label>
+                    <input class="form-control" type="text" asp-for="EditBook.ISBN" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label class="form-label" asp-for="EditBook.Language">Language</label>
+                    <input class="form-control" type="text" asp-for="EditBook.Language" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label class="form-label" asp-for="EditBook.Summary">Summary</label>
+                    <textarea class="form-control" asp-for="EditBook.Summary"></textarea>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group mt-3">
+                    <label asp-for="EditBook.PublicationDate" class="form-label">Publication Date</label>
+                    <input asp-for="EditBook.PublicationDate" class="form-control" type="date" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="EditBook.Pages" class="form-label">Pages</label>
+                    <input asp-for="EditBook.Pages" class="form-control" type="number" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="EditBook.PublisherId" class="form-label">Publisher Name</label>
+                    <select asp-for="EditBook.PublisherId" class="form-select">
+                        @foreach (var publisher in Model.Publishers)
+                        {
+                            <option value="@publisher.PublisherId">@publisher.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="EditBook.GenreID" class="form-label">Genre</label>
+                    <select asp-for="EditBook.GenreID" class="form-select">
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <option value="@genre.GenreID">@genre.GenreName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="NewAuthors" class="form-label">Authors</label>
+                    <input asp-for="NewAuthors" class="form-control" />
+                </div>
+
+                <div class="form-group mt-3">
+                    <a asp-page="/Books" class="btn btn-secondary">Back</a>
+                    <button type="submit" class="btn btn-primary">Edit Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <p class="text-danger">@Model.ErrorMessage</p>
+    }
+</form>

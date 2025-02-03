@@ -1,0 +1,55 @@
+﻿@page "{id:int}"
+@model LibraryBookingSystem.Pages.ViewPublisherModel
+
+<h1>View Publisher</h1>
+
+<div class="mt-4">
+    <div class="form-group">
+        <label class="form-label">Name</label>
+        <input class="form-control" value="@Model.ViewPublisher.Name" readonly />
+    </div>
+    <div class="form-group mt-3">
+        <label class="form-label">Address</label>
+        <input class="form-control" value="@Model.ViewPublisher.Address" readonly />
+    </div>
+    <div class="form-group mt-3">
+        <label class="form-label">City</label>
+        <input class="form-control" value="@Model.ViewPublisher.City" readonly />
+    </div>
+    <div class="form-group mt-3">
+        <label class="form-label">Country</label>
+        <input class="form-control" value="@Model.ViewPublisher.Country" readonly />
+    </div>
+</div>
+
+<h2>Publisher's Books</h2>
+@if (Model.ViewPublisher.Books.Any())
+{
+    <table class="table table-responsive table-light">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Genre</th>
+                <th>Rating</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.ViewPublisher.Books)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.ISBN</td>
+                    <td>@book.Genre.GenreName</td>
+                    <td>@book.Rating</td>
+                    <td>
+                        <a class="btn btn-outline-primary" asp-page="ViewBook" asp-route-id="@book.BookId">View details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-page="/Publishers" class="btn btn-secondary mt-3">Back</a>

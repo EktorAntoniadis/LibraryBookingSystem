@@ -2,6 +2,7 @@
 @model PublishersModel
 @{
     ViewData["Publishers"] = "Library Publishers";
+    var userRole = Model.HttpContext.Session.GetString("UserRole");
 }
 
 <h1>Library Publishers</h1>
@@ -87,7 +88,11 @@
                 <td>@publisher.City</td>
                 <td>@publisher.Country</td>
                 <td>
-                    <a asp-page="EditPublisher" asp-route-id="@publisher.PublisherId">Edit</a>                    
+                    @if (userRole == "Librarian" || userRole == "Administrator")
+                    {
+                        <a asp-page="EditPublisher" class="btn btn-warning" asp-route-id="@publisher.PublisherId">Edit</a>
+                    }
+                    <a asp-page="ViewPublisher" class="btn btn-outline-primary" asp-route-id="@publisher.PublisherId">View</a>
                 </td>
             </tr>
         }

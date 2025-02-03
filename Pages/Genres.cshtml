@@ -2,6 +2,7 @@
 @model GenreModel
 @{
     ViewData["Genres"] = "Manage Genres";
+    var userRole = Model.HttpContext.Session.GetString("UserRole");
 }
 
 <h1>Manage Genres</h1>
@@ -54,9 +55,12 @@
                 <td>@genre.GenreName</td>
                 <td>@genre.Description</td>
                 <td>
-                    <form method="post" asp-page-handler="Update" id="editGetGenre" asp-route-id="@genre.GenreID" style="display:inline">
-                        <button type="submit" class="btn btn-secondary">Edit</button>
-                    </form>
+                    @if (userRole == "Librarian" || userRole == "Administrator")
+                    {
+                        <form method="post" asp-page-handler="Update" asp-route-id="@genre.GenreID" style="display:inline">
+                            <button type="submit" class="btn btn-secondary">Edit</button>
+                        </form>
+                    }
                 </td>
             </tr>
         }

@@ -106,6 +106,7 @@ namespace LibraryBookingSystem.Repositories.Implementations
             var book = _context.Books
                 .Include(x => x.Genre)
                 .Include(x=>x.Publisher)
+                .Include(x=>x.Authors)
                 .FirstOrDefault(x => x.BookId == id);
             return book;
         }
@@ -118,7 +119,11 @@ namespace LibraryBookingSystem.Repositories.Implementations
 
         public Publisher? GetPublisherById(int id)
         {
-            var publisher = _context.Publishers.Find(id);
+            var publisher = _context
+                .Publishers
+                .Include(x=>x.Books)
+                .ThenInclude(x=>x.Genre)
+                .FirstOrDefault(x=>x.PublisherId == id);
             return publisher;
         }
 

@@ -1,0 +1,41 @@
+﻿@page "{id:int}"
+@model LibraryBookingSystem.Pages.EditRentedUserBookModel
+@{
+    ViewData["Title"] = "Edit Rented User Book";
+}
+<form method="post" asp-page-handler="UpdateRentedUserBook">
+    <input type="hidden" asp-for="EditRentedUserBook.UserId" />
+    <input type="hidden" asp-for="EditRentedUserBook.BookId" />
+    <input type="hidden" asp-for="EditRentedUserBook.RentedUserBookId" />
+    <div class="form-group">
+        <label class="form-label" asp-for="EditRentedUserBook.Book.Title">Book Title</label>
+        <input class="form-control" asp-for="EditRentedUserBook.Book.Title" readonly />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="EditRentedUserBook.User.Username">Username</label>
+        <input class="form-control" asp-for="EditRentedUserBook.User.Username" readonly />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="EditRentedUserBook.RentedDate">Rented Date</label>
+        <input class="form-control" asp-for="EditRentedUserBook.RentedDate" type="date" />
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="EditRentedUserBook.ReturnDate">Return Date</label>
+        <input class="form-control" asp-for="EditRentedUserBook.ReturnDate" type="date" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="EditRentedUserBook.DueDate">Due Date</label>
+        <input class="form-control" asp-for="EditRentedUserBook.DueDate" type="date" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="EditRentedUserBook.Status">Status</label>
+        <input class="form-control" asp-for="EditRentedUserBook.Status" type="text" />
+    </div>
+
+    <button class="btn btn-outline-success mt-3">Edit Rental</button>
+
+</form>

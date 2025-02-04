@@ -15,6 +15,7 @@ namespace LibraryBookingSystem.Pages
         }
 
         public IEnumerable<RentedUserBook> RentedUserBooks { get; set; }
+        public int OverdueBooksCount { get; set; }
         public IActionResult OnGet()
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
@@ -28,6 +29,8 @@ namespace LibraryBookingSystem.Pages
             if (userRole == "Member")
             {
                 RentedUserBooks = _inventoryRepository.GetUserRentedBooks((int)userId);
+                var overdueBooks = _inventoryRepository.GetOverdueRentedBooks((int)userId);
+                OverdueBooksCount = overdueBooks.Count();
             }
             else
             {

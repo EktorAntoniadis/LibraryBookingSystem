@@ -103,6 +103,14 @@ namespace LibraryBookingSystem.Repositories.Implementations
             return inventory;
         }
 
+        public IEnumerable<RentedUserBook> GetOverdueRentedBooks(int userId)
+        {
+            var rentedUserBook = _context.RentedUserBooks
+                .Where(x=>x.UserId == userId && x.DueDate < DateOnly.FromDateTime(DateTime.Now) && x.ReturnDate == null)
+                .ToList();
+            return rentedUserBook;
+        }
+
         public RentedUserBook GetRentedUserBook(int id)
         {
             var rentedUserBook = _context.RentedUserBooks

@@ -78,9 +78,9 @@ else
                         }
                     </td>
                     <td>
-                        @if (rentedBook.ReturnDate > rentedBook.DueDate)
+                        @if (rentedBook.IsOverdue)
                         {
-                            <p>Yes</p>
+                            <div class="d-inline-flex"><p>Yes <span class="badge bg-danger"><i class="bi bi-bell pt-2"></i></span></p></div>
                         }
                         else
                         {

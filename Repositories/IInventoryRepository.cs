@@ -22,6 +22,7 @@ namespace LibraryBookingSystem.Repositories
         RentedUserBook GetRentedUserBook(int id);
         IEnumerable<RentedUserBook> GetUserRentedBooks(int userId);
         IEnumerable<RentedUserBook> GetAllMembersRentedBooks();
+        IEnumerable<RentedUserBook> GetOverdueRentedBooks(int userId);
         bool IsBookRented(int userId, int bookId);
     }
 }

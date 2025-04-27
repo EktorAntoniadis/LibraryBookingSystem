@@ -30,6 +30,12 @@ namespace LibraryBookingSystem.Pages
 
         public IActionResult OnPost()
         {
+            ModelState.Remove("NewUser.Role");
+            if (!ModelState.IsValid) 
+            {
+                return Page();
+            }
+
             var roleOfMember = _roleRepository.GetRoleByName("Member");
             if (roleOfMember != null) 
             {

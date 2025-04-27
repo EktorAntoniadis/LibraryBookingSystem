@@ -9,30 +9,36 @@
 <form method="post">
     <div class="form-group">
         <label class="form-label" asp-for="NewUser.FirstName">First name</label>
-        <input class="form-control" asp-for="NewUser.FirstName" required />
+        <input class="form-control" asp-for="NewUser.FirstName"  />
+        <span asp-validation-for="NewUser.FirstName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label class="form-label" asp-for="NewUser.LastName">Last name</label>
-        <input class="form-control" asp-for="NewUser.LastName" required />
+        <input class="form-control" asp-for="NewUser.LastName"  />
+        <span asp-validation-for="NewUser.LastName" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label class="form-label" asp-for="NewUser.Email">Email</label>
-        <input class="form-control" type="email" asp-for="NewUser.Email" required />
+        <input class="form-control" type="email" asp-for="NewUser.Email"  />
+        <span asp-validation-for="NewUser.Email" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label class="form-label" asp-for="NewUser.Username">Username</label>
-        <input class="form-control" type="text" asp-for="NewUser.Username" required />
+        <input class="form-control" type="text" asp-for="NewUser.Username"  />
+        <span asp-validation-for="NewUser.Username" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label class="form-label" asp-for="NewUser.PhoneNumber">Phone number</label>
-        <input class="form-control" asp-for="NewUser.PhoneNumber" required />
+        <input class="form-control" asp-for="NewUser.PhoneNumber"  />
+        <span asp-validation-for="NewUser.PhoneNumber" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label class="form-label" asp-for="NewUser.Password">Password</label>
-        <input class="form-control" type="password" asp-for="NewUser.Password" required />
+        <input class="form-control" type="password" asp-for="NewUser.Password"  />
+        <span asp-validation-for="NewUser.Password" class="text-danger"></span>
     </div>
 
     @if (!string.IsNullOrEmpty(Model.ErrorMessage))

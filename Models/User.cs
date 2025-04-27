@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Bogus;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryBookingSystem.Models
@@ -29,6 +30,8 @@ namespace LibraryBookingSystem.Models
         public string PhoneNumber { get; set; }
 
         [Required]
+        [StringLength(15, MinimumLength = 10, ErrorMessage = "Password must be between 10 and 15 characters")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         
     }

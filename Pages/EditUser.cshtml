@@ -2,6 +2,8 @@
 @model LibraryBookingSystem.Pages.EditUserModel
 @{
     ViewData["Title"] = "Manage User";
+    var userRole = Model.HttpContext.Session.GetString("UserRole");
+    var canDisable = userRole == "Administrator" && Model.EditUser.Role.RoleName == "Administrator";
 }
 
 <h2>Edit User</h2>
@@ -52,5 +54,11 @@
             }
         </select>
     </div>
-    <button type="submit" class="btn btn-primary mb-3">Edit User</button>
+    <div class="form-group mt-3">
+        @if (userRole == "Administrator")
+        {
+            <p class="text-danger">Administrator cannot edit their details</p>
+        }
+    </div>
+    <button disabled="@canDisable" type="submit" class="btn btn-primary mb-3">Edit User</button>
 </form>

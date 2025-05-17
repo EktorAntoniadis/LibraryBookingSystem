@@ -2,9 +2,16 @@
 @model UsersModel
 @{
     ViewData["Users"] = "Users";
+    var userRole = Model.HttpContext.Session.GetString("UserRole");
+
 }
 
 <h1>@ViewData["Users"]</h1>
+
+@if (userRole == "Administrator")
+{
+    <a class="btn btn-info mt-3 mb-3" asp-page="/AddUser">Add new member</a>
+}
 
 @if (Model.Users != null && Model.Users.Any())
 {
@@ -28,7 +35,10 @@
                     <td>@user.Role.RoleName</td>
                     <td>
                         <a asp-page="/ViewUser" class="btn btn-info" asp-route-id="@user.UserId">View</a>
-                        <a asp-page="/EditUser" class="btn btn-warning" asp-route-id="@user.UserId">Edit</a>
+                        @if(userRole == "Administrator"){
+                            <a asp-page="/EditUser" class="btn btn-warning" asp-route-id="@user.UserId">Edit</a>
+
+                        }
                     </td>
                 </tr>
             }

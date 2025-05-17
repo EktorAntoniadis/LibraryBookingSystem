@@ -1,12 +1,14 @@
 using LibraryBookingSystem.Models;
 using LibraryBookingSystem.Repositories;
 using LibraryBookingSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LibraryBookingSystem.Pages
 {
+    [Authorize(Roles = "Librarian, Administrator, Member")]
     public class ChangePasswordModel : PageModel
     {
         private readonly IUserRepository _userRepository;

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LibraryBookingSystem.Pages
 {
-    [Authorize(Roles = "Librarian, Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class EditUserModel : PageModel
     {
         private readonly IUserRepository _userRepository;

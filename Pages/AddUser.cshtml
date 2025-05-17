@@ -1,0 +1,62 @@
+﻿@page
+@model LibraryBookingSystem.Pages.AddUserModel
+@{
+}
+
+<h3>New User</h3>
+
+<form method="post" asp-page-handler="AddNewUser" id="editAuthorForm" class="justify-content-center align-items-center gap-3">    
+    <div class="form-group">
+        <label class="form-label" asp-for="NewUser.FirstName">First Name</label>
+        <input class="form-control" asp-for="NewUser.FirstName" />
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="NewUser.LastName">Last Name</label>
+        <input class="form-control" asp-for="NewUser.LastName" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="NewUser.Username">Username</label>
+        <input class="form-control" asp-for="NewUser.Username" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="NewUser.Password">Password</label>
+        <input class="form-control" type="password" asp-for="NewUser.Password" />
+        @if (Model.PasswordErrors.Any())
+        {
+            <ul>
+                @foreach (var error in Model.PasswordErrors)
+                {
+                    <li><span class="text-danger">@error</span></li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="NewUser.Email">Email</label>
+        <input class="form-control" asp-for="NewUser.Email" />
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="NewUser.PhoneNumber">Phone Number</label>
+        <input class="form-control" type="text" asp-for="NewUser.PhoneNumber" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="NewUser.RoleId">Role</label>
+        <select class="form-control form-select" asp-for="NewUser.RoleId">
+            @foreach (var role in Model.AllRoles)
+            {
+                <option value="@role.RoleId" selected="@(role.RoleId == Model.NewUser.RoleId ? "selected" : null)">
+                    @role.RoleName
+                </option>
+            }
+        </select>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <p class="text-danger">@Model.ErrorMessage</p>
+    }
+    <button type="submit" class="btn btn-primary mb-3">New User</button>
+</form>

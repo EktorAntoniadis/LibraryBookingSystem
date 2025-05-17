@@ -1,0 +1,49 @@
+﻿@page
+@model LibraryBookingSystem.Pages.ProfileModel
+@{
+}
+
+<div class="card w-auto p-3">
+    <div class="card-header card-title text-center">
+        <h2>@Model.LoggedInUser.FirstName @Model.LoggedInUser.LastName</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-2"><p>Role:</p></div>
+            <div class="col-10">
+                <p>
+                    @Model.LoggedInUser.Role.RoleName
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2"><p>Username:</p></div>
+            <div class="col-10"> <p>@Model.LoggedInUser.Username</p></div>
+        </div>
+        <div class="row">
+            <div class="col-2"><p>First Name:</p></div>
+            <div class="col-10"> <p>@Model.LoggedInUser.FirstName</p></div>
+        </div>
+        <div class="row">
+            <div class="col-2"><p>Last Name:</p></div>
+            <div class="col-10"><p>@Model.LoggedInUser.LastName</p></div>
+        </div>
+        <div class="row">
+            <div class="col-2"><p>Phone number</p></div>
+            <div class="col-10"><p>@Model.LoggedInUser.PhoneNumber</p></div>
+        </div>
+        <div class="row">
+            <div class="col-2"><p>Registration Date:</p></div>
+            <div class="col-10"> <p>@Model.LoggedInUser.RegisteredDate</p></div>
+        </div>
+        <div class="row">
+            <div class="col-2"><p>Email: </p></div>
+            <div class="col-10"> <p>@Model.LoggedInUser.Email</p></div>
+        </div>
+        <div class="row">
+            <div class="col-2"><p>Password: </p></div>
+            <div class="col-2"><input type="password" class="form-control" value="@Model.LoggedInUser.Password" disabled /></div>
+            <div class="col-8"><a class="btn btn-info" asp-page="ChangePassword">Change password</a></div>
+        </div>
+    </div>
+</div>

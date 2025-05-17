@@ -65,7 +65,7 @@
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity!.IsAuthenticated)
                         {
-                            <li class="nav-item pe-2">Hello @userRole @User.Identity.Name</li>
+                            <li class="nav-item"><a class="nav-link text-primary" asp-page="Profile">Hello @userRole @User.Identity.Name</a></li>
                             @if (overdueBooksCount > 0)
                             {
                                 <div>

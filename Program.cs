@@ -82,6 +82,29 @@ namespace LibraryBookingSystem
             app.UseSession();
             app.MapRazorPages();
 
+            app.Use(async (context, next) =>
+            {
+                // Πολιτική αποστολής του "Referrer" header από τον browser.
+                context.Response.Headers.Add("Referrer-Policy", "no-referrer");
+
+                // Αποφυγή παγίδευσης κλικ
+                context.Response.Headers.Add("X-Frame-Options", "DENY");                            
+
+                // Χρήση Content Security Policy (CSP) Καθαρισμός εισόδου (input sanitization) στον κώδικα της εφαρμογής.
+                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
+
+                // Ενεργοποίηση προστασίας από XSS
+                context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+
+                // Εξαναγκασμός του browser να χρησιμοποιεί μόνο HTTPS
+                context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+
+                // Αποτροπή αναγνώρισης MIME τύπου από τον browser
+                context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+
+                await next();
+            });
+
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;

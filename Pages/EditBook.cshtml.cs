@@ -1,5 +1,6 @@
 using LibraryBookingSystem.Models;
 using LibraryBookingSystem.Repositories;
+using LibraryBookingSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -37,7 +38,7 @@ namespace LibraryBookingSystem.Pages
             Publishers = _bookRepository.GetAllPublishers();
             Genres = _bookRepository.GetAllGenres();
             NewAuthors = string.Join(", ", EditBook.Authors.Select(a => $"{a.FirstName} {a.LastName}"));
-
+            EditBook.Summary = TextDecryptor.DecryptText(EditBook.Summary);
             return Page();
         }
 
@@ -46,6 +47,7 @@ namespace LibraryBookingSystem.Pages
             try
             {
                 EditBook.Authors = new List<Author>();
+                EditBook.Summary = TextDecryptor.EncryptText(EditBook.Summary);
                 _bookRepository.UpdateBook(EditBook);
                 var authors = NewAuthors.Split(',');
                 foreach (var author in authors)

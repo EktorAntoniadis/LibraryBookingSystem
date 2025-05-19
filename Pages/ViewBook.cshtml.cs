@@ -1,6 +1,7 @@
 using LibraryBookingSystem.Common;
 using LibraryBookingSystem.Models;
 using LibraryBookingSystem.Repositories;
+using LibraryBookingSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -27,6 +28,7 @@ namespace LibraryBookingSystem.Pages
         public IActionResult OnGet(int id)
         {
             ViewBook = _bookRepository.GetBookById(id);
+            ViewBook.Summary = TextDecryptor.DecryptText(ViewBook.Summary);
             return Page();
         }
 

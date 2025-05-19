@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using LibraryBookingSystem.Services;
 using Microsoft.AspNetCore.Identity;
 using System.Numerics;
 using static System.Reflection.Metadata.BlobBuilder;
@@ -327,7 +328,7 @@ namespace LibraryBookingSystem.Models
                     Rating = libraryFaker.Random.Int(1, 5),
                     PublisherId = libraryFaker.Random.Int(1, 1000),
                     Authors = libraryFaker.PickRandom(authorlist, randomNumberOfAuthors).ToList(),
-                    Summary = libraryFaker.Lorem.Paragraph(),
+                    Summary = TextDecryptor.EncryptText(libraryFaker.Lorem.Paragraph()),
                 });
             }
 

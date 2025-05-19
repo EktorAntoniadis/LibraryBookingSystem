@@ -1,5 +1,6 @@
 using LibraryBookingSystem.Models;
 using LibraryBookingSystem.Repositories;
+using LibraryBookingSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -69,6 +70,7 @@ namespace LibraryBookingSystem.Pages
                 }
             }
 
+            NewBook.Summary = TextDecryptor.EncryptText(NewBook.Summary);
             _bookRepository.AddBook(NewBook);
             return RedirectToPage("/Books");
         }

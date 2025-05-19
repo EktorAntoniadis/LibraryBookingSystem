@@ -8,6 +8,7 @@
 <h1>Edit Book</h1>
 
 <form method="post" asp-page-handler="EditBook">
+    @Html.AntiForgeryToken();
     <input type="hidden" asp-for="EditBook.BookId" />
 
     <div class="mt-4">

@@ -9,6 +9,7 @@
 
 <h2>Add New Genre</h2>
 <form method="post" asp-page-handler="AddGenre" id="addGenreForm" class="justify-content-center align-items-center gap-3">
+    @Html.AntiForgeryToken();
     <div class="form-group mb-3">
         <label class="form-label" asp-for="NewGenre.GenreName">Genre Name</label>
         <input class="form-control" asp-for="NewGenre.GenreName" type="text" id="GenreName" name="GenreName" required />
@@ -24,6 +25,7 @@
 {
     <h3>Edit Genre</h3>
     <form method="post" asp-page-handler="EditGenre" id="editGenreForm" class="justify-content-center align-items-center gap-3">
+        @Html.AntiForgeryToken();
         <input hidden asp-for="EditGenre.GenreID" />
         <div class="form-group">
             <label class="form-label" asp-for="EditGenre.GenreName">Genre Name</label>

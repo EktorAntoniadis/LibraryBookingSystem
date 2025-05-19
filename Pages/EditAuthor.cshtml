@@ -4,6 +4,7 @@
 <h1>Edit Author</h1>
 
 <form method="post" class="mt-4" asp-page-handler="EditAuthor">
+    @Html.AntiForgeryToken();
     <input hidden asp-for="EditAuthor.AuthorId" />
 
     <div class="form-group">

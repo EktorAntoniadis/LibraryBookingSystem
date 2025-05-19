@@ -1,6 +1,7 @@
 using LibraryBookingSystem.Models;
 using LibraryBookingSystem.Repositories;
 using LibraryBookingSystem.Repositories.Implementations;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryBookingSystem
@@ -17,17 +18,33 @@ namespace LibraryBookingSystem
                 options.UseMySql("server=127.0.0.1;uid=root;database=librarymanagementdb",
                 ServerVersion.AutoDetect("server=127.0.0.1;uid=root;database=librarymanagementdb")));
 
+            //Στο ASP.NET Core(συμπεριλαμβανομένου του .NET 8), τα tokens κατά της παραχάραξης (anti-forgery) είναι ήδη ενεργοποιημένα για τις σελίδες Razor και MVC. Το μόνο που χρειάζεται είναι να ενεργοποιηθεί το στοιχείο 
+            // AutoValidateAntiforgeryToken και να μπει το @Html.AntiForgeryToken() σε όλες τις φόρμες.
+            builder.Services.AddRazorPages(options =>
+            {
+                options.Conventions.ConfigureFilter(new AutoValidateAntiforgeryTokenAttribute());
+            });
+
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
             builder.Services.AddHttpContextAccessor();
 
+            builder.Services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.MinimumSameSitePolicy = SameSiteMode.Strict;
+                options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always;
+                options.Secure = CookieSecurePolicy.Always;
+            });
+
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(60);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.Strict;
             });
 
             builder.Services.AddAuthentication("LibraryBookingSystemScheme")
@@ -36,6 +53,11 @@ namespace LibraryBookingSystem
                     options.LoginPath = "/Login";
                     options.AccessDeniedPath = "/Error";
                 });
+
+            builder.Services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
 
             builder.Services.AddAuthorization();
 
@@ -56,6 +78,7 @@ namespace LibraryBookingSystem
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCookiePolicy();
             app.UseSession();
             app.MapRazorPages();
 

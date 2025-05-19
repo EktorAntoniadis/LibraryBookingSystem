@@ -4,6 +4,7 @@
     ViewData["Title"] = "Edit Rented User Book";
 }
 <form method="post" asp-page-handler="UpdateRentedUserBook">
+    @Html.AntiForgeryToken();
     <input type="hidden" asp-for="EditRentedUserBook.UserId" />
     <input type="hidden" asp-for="EditRentedUserBook.BookId" />
     <input type="hidden" asp-for="EditRentedUserBook.RentedUserBookId" />

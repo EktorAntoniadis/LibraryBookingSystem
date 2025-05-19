@@ -8,6 +8,7 @@
 <h1>Library Authors</h1>
 
 <form method="get" class="mb-4">
+    @Html.AntiForgeryToken();
     <div class="row">
         <div class="col-3">
             <input type="text" name="FirstName" value="@Model.FirstName" class="form-control" placeholder="Search by first name" />

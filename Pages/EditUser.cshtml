@@ -9,6 +9,7 @@
 <h2>Edit User</h2>
 
 <form method="post" asp-page-handler="UpdateUser" id="editUserForm" class="justify-content-center align-items-center gap-3">
+    @Html.AntiForgeryToken();
     <input type="hidden" asp-for="EditUser.UserId" />
     <div class="form-group">
         <label class="form-label" asp-for="EditUser.FirstName">First Name</label>

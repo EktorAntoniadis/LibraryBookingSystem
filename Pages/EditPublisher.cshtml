@@ -8,6 +8,7 @@
 <h1>Edit Publisher</h1>
 
 <form method="post" asp-page-handler="EditPublisher">
+    @Html.AntiForgeryToken();
     <input type="hidden" asp-for="EditPublisher.PublisherId" />
 
     <div class="mb-3">

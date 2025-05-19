@@ -4,8 +4,8 @@
 }
 
 <h3>New User</h3>
-
-<form method="post" asp-page-handler="AddNewUser" id="editAuthorForm" class="justify-content-center align-items-center gap-3">    
+<form method="post" asp-page-handler="AddNewUser" id="editAuthorForm" class="justify-content-center align-items-center gap-3">
+    @Html.AntiForgeryToken();
     <div class="form-group">
         <label class="form-label" asp-for="NewUser.FirstName">First Name</label>
         <input class="form-control" asp-for="NewUser.FirstName" />

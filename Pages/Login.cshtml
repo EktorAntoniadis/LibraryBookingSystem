@@ -6,6 +6,7 @@
 <h1>@ViewData["Login"]</h1>
 
 <form method="post" class="w-50">
+    @Html.AntiForgeryToken();
     <div class="mb-3">
         <label class="form-label" for="username">Username:</label>
         <input class="form-control" type="text" id="username" name="Username" />

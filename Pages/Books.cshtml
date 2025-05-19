@@ -107,17 +107,16 @@
                 </td>
                 <td>@book.Rating</td>
                 <td>
-                    <div class="btn-group" role="group">
-                        @if (userRole == "Member")
+                    <div class="btn-group" role="group">                       
+                        <a class="btn btn-outline-primary" asp-route-id="@book.BookId" asp-page="/ViewBook">View</a>                        
+                        @if(@userRole == "Librarian" || @userRole == "Administrator")
                         {
-                            <a class="btn btn-outline-primary" asp-route-id="@book.BookId" asp-page="/ViewBook">View</a>
-
+                            <a class="btn btn-outline-primary" asp-page="EditBook" asp-route-id="@book.BookId">Edit</a>    
                         }
-                        else
-                        {
-                            <a class="btn btn-outline-primary" asp-page="EditBook" asp-route-id="@book.BookId">Edit</a>
-                            <a class="btn btn-outline-primary" asp-page="DeleteBook" asp-route-id="@book.BookId">Delete</a>
 
+                        @if (userRole == "Administrator") 
+                        {
+                            <a class="btn btn-outline-primary" asp-page="DeleteBook" asp-route-id="@book.BookId">Delete</a>
                         }
                     </div>
                 </td>

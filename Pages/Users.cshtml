@@ -35,10 +35,10 @@
                     <td>@user.Role.RoleName</td>
                     <td>
                         <a asp-page="/ViewUser" class="btn btn-info" asp-route-id="@user.UserId">View</a>
-                        @if(userRole == "Administrator"){
-                            <a asp-page="/EditUser" class="btn btn-warning" asp-route-id="@user.UserId">Edit</a>
+                        <a asp-page="/EditUser" class="btn btn-warning" asp-route-id="@user.UserId">Edit</a>
+                        @if(userRole == "Administrator"){                           
                             <a asp-page="/DeleteUser" class="btn btn-danger" asp-route-id="@user.UserId">Delete</a>
-                        }
+                        }                       
                     </td>
                 </tr>
             }

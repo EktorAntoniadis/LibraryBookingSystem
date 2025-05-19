@@ -66,19 +66,6 @@ namespace LibraryBookingSystem.Repositories.Implementations
             }
         }
 
-        public IEnumerable<Author> GetAllAuthors()
-        {
-            var authors = _context.Authors.ToList();
-            return authors;
-
-        }
-
-        public IEnumerable<Book> GetBooks()
-        {
-            var books = _context.Books.Include(x => x.Publisher).Include(x => x.Genre).ToList();
-            return books;
-
-        }
 
         public IEnumerable<Genre> GetAllGenres()
         {
